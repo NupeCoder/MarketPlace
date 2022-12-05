@@ -1,1 +1,39 @@
-<?php
+<!-- Holds a bootstrap card that will contain login form -->
+<?php require_once('Views/other/header.phtml'); ?>
+
+<div class="card shadow text-center">
+    <div class="card-body  p-8">
+        <h1 class="card-title mb-5">Login</h1>
+        <!-- Form starts here; includes validation form bootstrap -->
+        <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+            <div class="mb-3">
+                <label class="mb-2 text-muted" for="email">Company Email Address</label>
+                <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+                <div class="invalid-feedback">
+                    Oh No! The email is invalid.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="text-muted" for="password">Password</label>
+                <input id="password" type="password" class="form-control" name="password" required>
+                <div class="invalid-feedback">
+                    Please enter a password...
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-dark">Continue</button>
+        </form>
+    </div>
+
+    <!-- Holds the footer of the card that allows users to register if needed -->
+
+    <!--
+    <div class="card-footer border-0">
+        <div class="text-center">
+            Would you like to create account? -> <a href="register.html" class="text-dark">Create One</a>
+    </div>
+    -->
+</div>
+
+<?php require_once('Views/other/footer.phtml'); ?>
