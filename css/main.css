@@ -2,3 +2,20 @@
     width: 50%;
     margin: 0 auto;
 }
+
+.red {
+    color: #d50032;
+
+}
+
+.border-red {
+    border-color: #d50032;
+    border-width: medium;
+}
+
+
+.background-red {
+    background-color: #d50032;
+    color: white;
+}
+
