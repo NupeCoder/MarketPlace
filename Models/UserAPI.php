@@ -6,8 +6,8 @@ require_once('Models/UserData.php');
 class UserAPI
 {
 
-    protected $dbInstance;
-    protected $dbHandle;
+    protected ?Database $dbInstance;
+    protected PDO $dbHandle;
     protected $DEFAULT_PROFILE_PICTURE;
 
     public function __construct()
@@ -41,9 +41,9 @@ class UserAPI
      * @param $pass String password
      * @return array $dataSet
      */
-    public function userValidation($user, $pass)
+    public function userValidation(string $user, string $pass): array
     {
-        $queryOne = 'SELECT userID, password FROM Users WHERE username = ?';
+        $queryOne = 'SELECT userID, password FROM Users WHERE email = ?';
 
         $statementOne = $this->dbHandle->prepare($queryOne); //Prep the PDO statement
         $statementOne->bindParam(1, $user); //bindParam $user to the first question mark

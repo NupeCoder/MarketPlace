@@ -1,14 +1,14 @@
 <?php
 
+
 require_once('UserAPI.php');
 
 class User
 {
-    private int $_ownerID;
+    private int $_userID;
     private string $_name;
     private bool $_loggedIn;
     private string $_profilePicURL;
-
 
     public function __construct()
     {
@@ -16,7 +16,7 @@ class User
         session_save_path("sessions");
         //-----------------------------------------------------------------------------------------------
         session_start();
-        $this->_ownerID = 0;
+        $this->_userID = 0;
         $this->_name = "User";
         $this->_loggedIn = false;
         $this->_profilePicURL = "images/default.png";
@@ -25,7 +25,7 @@ class User
         {
             if($_SESSION["loginStatus"])
             {
-                $this->_ownerID = $_SESSION['ownerID'];
+                $this->_userID = $_SESSION['userID'];
                 $this->_loggedIn = true;
                 $this->_name = $_SESSION["fullName"];
                 $this->_profilePicURL = $_SESSION["profilePhoto"];
@@ -69,19 +69,19 @@ class User
     }
 
     /**
-     * @param int $ownerID
+     * @param int $userID
      */
-    public function setOwnerID(int $ownerID): void
+    public function setUserID(int $userID): void
     {
-        $this->_ownerID = $ownerID;
+        $this->_userID = $userID;
     }
 
     /**
      * @return int
      */
-    public function getOwnerID(): int
+    public function getUserID(): int
     {
-        return $this->_ownerID;
+        return $this->_userID;
     }
 
 
@@ -100,11 +100,11 @@ class User
         if (count($validatedUsers) >= 1)
         {
             $_SESSION["loginStatus"] = true;
-            $_SESSION["fullName"] = $validatedUsers[0]->getFullName();
+            $_SESSION["fullName"] = $validatedUsers[0]->getName();
             $_SESSION["profilePhoto"] = $validatedUsers[0]->getProfilePhoto();
             $_SESSION["ownerID"] = $validatedUsers[0]->getID();
             $this->_loggedIn = true;
-            $this->_name = $validatedUsers[0]->getFullName();
+            $this->_name = $validatedUsers[0]->getName();
             $this->_profilePicURL = $validatedUsers[0]->getProfilePhoto();
             var_dump($_SESSION["fullName"]);
             return true;
