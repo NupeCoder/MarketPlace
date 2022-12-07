@@ -25,3 +25,17 @@ body
     border-color: #d50032;
     border-width: medium;
 }
+
+@media only screen and (max-width: 600px)
+{
+    .resize
+    {
+        width: 75%;
+
+    }
+}
+
+.form-control
+{
+    width: 45%
+}
