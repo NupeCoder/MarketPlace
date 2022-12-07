@@ -1,21 +1,27 @@
-.text-shrink {
+html {
+    height: 100%;
+}
+body
+{
+    height: 100%;
+    margin: 0;
+    background-size: 400% 400%;
+    background: rgb(255,255,255);
+    background: -moz-linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(138,138,138,0.5) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(138,138,138,0.5) 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(138,138,138,0.5) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#8a8a8a",GradientType=1)
+}
+
+.text-shrink
+{
     width: 50%;
     margin: 0 auto;
 }
 
-.red {
-    color: #d50032;
-
-}
-
-.border-red {
+.border-red
+{
     border-color: #d50032;
     border-width: medium;
-}
-
-
-.background-red {
-    background-color: #d50032;
-    color: white;
 }
 
