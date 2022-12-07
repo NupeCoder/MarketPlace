@@ -20,15 +20,38 @@
 
 </head>
 
+<div class="navbar">
+
+    <ul style = "list-style-type: none">
+        <div class ="logo">
+            <li class = "nav-item">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                    <img class ="logo"  alt="Company Logo" width="200px" height="64px" src="images/company_logo.png"/>
+                </a>
+            </li>
+        </div>
+
+        <div class="burger">
+            <li class = "nav-item nav justify-content-end">
+                <div onclick="myFunction(this)">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+            </li>
+        </div>
+    </ul>
+</div>
+<script>
+    function myFunction(x) {
+        x.classList.toggle("change");
+    }
+</script>
+
 
 <body class="d-flex flex-column h-100">
 
-<nav class="d-flex flex-wrap justify-content-center py-3 mb-4">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <img class ="logo"  alt="Company Logo" width="200px" height="64px" src="images/company_logo.png"/>
-    </a>
 
-</nav>
 
 
 <!-- Begin page content -->
