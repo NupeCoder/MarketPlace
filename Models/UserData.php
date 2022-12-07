@@ -4,8 +4,6 @@ class UserData
 {
     protected $_userID, $_name, $_email, $_password, $_location, $_phoneNumber, $_profilePhoto, $_position;
 
-
-
     public function __construct($dbRow) {
         $this->_userID = $dbRow['userID'];
         $this->_name = $dbRow['name'];
@@ -15,7 +13,6 @@ class UserData
         $this->_phoneNumber = $dbRow['phoneNumber'];
         $this->_profilePhoto = $dbRow['profilePhoto'];
         $this->_position = $dbRow['position'];
-
     }
 
     public function getUserID() {
@@ -50,6 +47,5 @@ class UserData
     public function getPosition() {
         return $this->_position;
     }
-
 
 }
