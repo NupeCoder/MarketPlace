@@ -2,7 +2,7 @@
 
 class UserData
 {
-    protected $_userID, $_name, $_email, $_password, $_location, $_phoneNumber, $_profilePhoto, $_position;
+    protected $_userID, $_name, $_email, $_password, $_location, $_phoneNumber, $_profilePhoto, $_role;
 
     public function __construct($dbRow) {
         $this->_userID = $dbRow['userID'];
@@ -12,7 +12,7 @@ class UserData
         $this->_location = $dbRow['location'];
         $this->_phoneNumber = $dbRow['phoneNumber'];
         $this->_profilePhoto = $dbRow['profilePhoto'];
-        $this->_position = $dbRow['position'];
+        $this->_role = $dbRow['role'];
     }
 
     public function getUserID() {
@@ -44,8 +44,8 @@ class UserData
         return $this->_profilePhoto;
     }
 
-    public function getPosition() {
-        return $this->_position;
+    public function getRole() {
+        return $this->_role;
     }
 
 }

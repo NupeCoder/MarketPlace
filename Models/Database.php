@@ -2,14 +2,8 @@
 
 class Database
 {
-    /**
-     * @var Database
-     */
-    protected static $_dbInstance = null;
 
-    /**
-     * @var PDO
-     */
+    protected static $_dbInstance = null;
     protected $_dbHandle;
 
     /**
