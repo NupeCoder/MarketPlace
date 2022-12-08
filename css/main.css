@@ -98,8 +98,11 @@ body
      width: 100%;
  }
 
- .navbar
- {
-     background-color: white;
-     border-bottom: 5px solid #d50032;
- }
+.space {
+
+}
+
+.nav-space {
+    padding-left:20px;
+    padding-right:20px;
+}
