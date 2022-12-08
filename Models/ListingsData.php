@@ -10,7 +10,7 @@ class ListingsData extends UserData
     {
         parent::__construct($dbRow);
         $this->_listingID = $dbRow['listingID'];
-        $this->_listingName = $dbRow['name'];
+        $this->_listingName = $dbRow['listingName'];
         $this->_description = $dbRow['description'];
         $this->_price = $dbRow['price'];
         $this->_confirmed = $dbRow['confirmed'];
