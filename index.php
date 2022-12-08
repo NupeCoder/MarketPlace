@@ -13,10 +13,12 @@ if(isset($_POST["LOGIN"]))
 {
     if (($userInstance->authenticateUser($_POST['email'], $_POST['password'])))
     {
+        header('location: dashboard.php'); //
         echo("Valid Login");
     }
     else
     {
+
         echo("Invalid Login");
     }
 }
