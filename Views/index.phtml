@@ -1,13 +1,13 @@
 <!-- Holds a bootstrap card that will contain login form -->
 <?php require_once('Views/other/header.phtml'); ?>
 
-<div class="card shadow text-center text-shrink border-red pt-5 resize">
-    <div class="card-body p-8">
-        <h1 class="card-title mb-3">Login</h1>
+<div class="card shadow text-center text-shrink border-red">
+    <div class="card-body  p-8">
+        <h1 class="card-title mb-5">Login</h1>
         <!-- Form starts here; includes validation form bootstrap -->
-        <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+        <form action="dashboard.php" method="POST" class="needs-validation" novalidate="" autocomplete="off">
             <div class="mb-3">
-                <label class="text-muted" for="email">Username</label>
+                <label class="mb-2 text-muted" for="email">Username</label>
                 <input id="email" type="email" class="form-control text-shrink border-red" name="email" value="" required autofocus>
                 <div class="invalid-feedback">
                     Oh No! The email is invalid.
@@ -21,8 +21,7 @@
                     Please enter a password...
                 </div>
             </div>
-
-            <button type="submit" class="btn btn-danger mb-3">Continue</button>
+            <input type="submit" class="form-control-sm px-4 mt-3 background-red" name="LOGIN" value="Log In"  />
         </form>
     </div>
 </div>
