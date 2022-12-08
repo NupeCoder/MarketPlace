@@ -20,20 +20,44 @@
 
 </head>
 
-
 <body class="d-flex flex-column h-100">
 
-<nav class="d-flex flex-wrap justify-content-center py-3 mb-4">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <img class ="logo"  alt="Company Logo" width="200px" height="64px" src="images/company_logo.png"/>
-    </a>
-</nav>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark space">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Fixed navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item nav-space">
+                        <a class="nav-link active " aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item nav-space">
+                        <a class="nav-link " href="#" >My Listings</a>
+                    </li>
+                    <li class="nav-item nav-space">
+                        <a class="nav-link " href="#" >Create Listing</a>
+                    </li>
 
+                    <li class="nav-item nav-space">
+                        <a class="nav-link  href="#" >My Profile</a>
+                    </li>
+
+                    <li class="nav-item nav-space">
+                        <a class="nav-link  href="#" >Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
 
 <!-- Begin page content -->
-<main class="pt-5">
+<main class="flex-shrink-0">
 
-    <div class="container-sm pt-5">
+    <div class="container">
 
         <div class="row">
-            <section id="content">
+            <section id="content" class="col-xs-6 col-sm-9 col-md-10">
