@@ -7,7 +7,7 @@ $view->pageTitle = "Login";
 
 $userInstance = new User();
 
-require_once('Views/index.phtml');
+
 
 if(isset($_POST["LOGIN"]))
 {
@@ -22,3 +22,5 @@ if(isset($_POST["LOGIN"]))
         echo("Invalid Login");
     }
 }
+
+require_once('Views/index.phtml');
