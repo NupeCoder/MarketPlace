@@ -68,4 +68,22 @@ footer ul li:hover a {
 }
 table{
     margin-left: 10%;
+    width: 70%;
+}
+table tbody, table thead
+{
+    display: block;
+}
+table tbody
+{
+    overflow: auto;
+    height: 75vh;
+}
+th
+{
+    width: 10%;
+}
+td
+{
+    width: 10%;
 }
