@@ -52,7 +52,7 @@ class ListingsAPI {
                        <td>{$listing->getCategory()}</td>
                        <td>
                             <img src="{$listing->getItemPhoto()} " style="height:64px; width:64px; border-radius: 25%; border: 
-                            2px solid #328135;" alt="This is a profile photo">
+                            2px solid crimson;" alt="This is a profile photo">
                        </td>
                        <td><p>Owner's Name is: </p>{$listing->getName()}</td>
                     <tr>
