@@ -60,6 +60,29 @@ class ListingsAPI {
         }
     }
 
+    /**
+     * This method is made to echo the card with the appropriate information
+     * @param array $input
+     * @return void
+     */
+    public function createCards(array $input): void
+    {
 
+        foreach ($input as $listing)
+        {
+            echo <<< EOT
+                    <div class="card" style="width: 18rem;">
+                        <img src="{$listing->getItemPhoto()}" class="card-img-top alt="Product Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{$listing->getListingName()}</h5>
+                            <h6 class="card-text">{$listing->getCategory()}</h6>
+                            <p class="card-text">{$listing->getDescription()} - The price is £{$listing->getPrice()}</p>
+                            <p class="card-text">Seller: {$listing->getName()}</p><img src="{$listing->getProfilePhoto()}" alt="Seller Profile Picture">
+                            <a href="#" class="btn btn-outline-danger">Send a Message</a>
+                        </div>
+                    </div>
+                  EOT;
+        }
+    }
 
 }

@@ -16,6 +16,6 @@ if(isset($_POST["LOGOUT"]))
 
 require_once('Views/dashboard.phtml');
 
-$listingAPI->populateTable($listingAPI->fetchAllConfirmedListings());
+$listingAPI->createCards($listingAPI->fetchAllConfirmedListings());
 
 
