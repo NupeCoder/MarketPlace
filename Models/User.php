@@ -21,6 +21,10 @@ class User
         $this->_loggedIn = false;
         $this->_profilePicURL = "images/default.png";
 
+
+
+
+
         if(isset($_SESSION["loginStatus"]))
         {
             if($_SESSION["loginStatus"])
@@ -84,6 +88,10 @@ class User
         return $this->_userID;
     }
 
+    public function getUserData() {
+        return $this->_validatedUsers;
+    }
+
 
     /**
      * Validates the user credentials and sets key SESSION variables that will allow other methods to access said data
@@ -95,17 +103,37 @@ class User
     {
         $userSet = new UserAPI();
 
-        $validatedUsers = $userSet->userValidation($user, $pass);
+        //$validatedUsers = $userSet->userValidation($user, $pass);
 
-        if (count($validatedUsers) >= 1)
+        $_validatedUsers = $userSet->userValidation($user, $pass);
+
+        if (count($_validatedUsers) >= 1)
         {
+
+
+
+            /*
+            $this->_userData->setUserID($validatedUsers[0]->getUserID());
+            $this->_userData->setName($validatedUsers[0]->getName());
+            $this->_userData->setEmail($validatedUsers[0]->getEmail());
+            $this->_userData->setPassword($validatedUsers[0]->getPassword());
+            $this->_userData->setLocation($validatedUsers[0]->getLocation());
+            $this->_userData->setPhoneNumber($validatedUsers[0]->getPhoneNumber());
+            $this->_userData->setProfilePhoto($validatedUsers[0]->getProfilePhoto());
+            $this->_userData->setRole($validatedUsers[0]->getRole());
+*/
+
+
+
             $_SESSION["loginStatus"] = true;
-            $_SESSION["fullName"] = $validatedUsers[0]->getName();
-            $_SESSION["profilePhoto"] = $validatedUsers[0]->getProfilePhoto();
-            $_SESSION["userID"] = $validatedUsers[0]->getUserID();
+            $_SESSION["fullName"] = $_validatedUsers[0]->getName();
+            $_SESSION["profilePhoto"] = $_validatedUsers[0]->getProfilePhoto();
+            $_SESSION["userID"] = $_validatedUsers[0]->getUserID(); // we will use this for getting user details
+
+
             $this->_loggedIn = true;
-            $this->_name = $validatedUsers[0]->getName();
-            $this->_profilePicURL = $validatedUsers[0]->getProfilePhoto();
+            $this->_name = $_validatedUsers[0]->getName();
+            $this->_profilePicURL = $_validatedUsers[0]->getProfilePhoto();
             return true;
         }
         else

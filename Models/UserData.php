@@ -15,6 +15,8 @@ class UserData
         $this->_role = $dbRow['role'];
     }
 
+
+
     public function getUserID() {
         return $this->_userID;
     }
@@ -46,6 +48,39 @@ class UserData
 
     public function getRole() {
         return $this->_role;
+    }
+
+    public function setUserID($id) {
+        $this->_userID = $id;
+    }
+
+    public function setName($nme) {
+        $this->_name = $nme;
+    }
+
+    public function setEmail($mail) {
+        $this->_email = $mail;
+    }
+
+    public function setPassword($pword) {
+        $this->_password = $pword;
+    }
+
+
+    public function setLocation($lct) {
+        $this->_location =  $lct;
+    }
+
+    public function setPhoneNumber($phone) {
+        $this->_phoneNumber = $phone;
+    }
+
+    public function setProfilePhoto($photo) {
+        $this->_profilePhoto = $photo;
+    }
+
+    public function setRole($rle) {
+        $this->_role = $rle;
     }
 
 }
