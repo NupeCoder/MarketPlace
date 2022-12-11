@@ -1,7 +1,13 @@
 <?php
 
+//session_start();
+
 require_once('Models/Database.php');
+
+
+//require_once('Models/ListingsData.php');
 require_once('Models/UserData.php');
+
 
 class UserAPI
 {
@@ -34,6 +40,27 @@ class UserAPI
         }
         return $dataSet;
     }
+
+
+
+
+    public function getUserDetails() {
+
+        $userID = $_SESSION["userID"];
+
+        $sqlQuery = 'SELECT * FROM Users WHERE userID = ?';
+
+        $statement = $this->dbHandle->prepare($sqlQuery); //Prep the PDO statement
+        $statement->bindParam(1, $userID); //bindParam $user to the first question mark
+        $statement->execute(); //Attempts to execute prepped statement
+
+        $dataSet = [];
+        while ($row = $statement->fetch()) {
+            $dataSet[] = new UserData($row);
+        }
+        return $dataSet;
+    }
+
 
     /**
      * Takes in user input and validates it against the database's stored credentials

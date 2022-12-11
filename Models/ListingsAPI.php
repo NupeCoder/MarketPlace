@@ -33,6 +33,25 @@ class ListingsAPI {
         return $dataSet;
     }
 
+
+    public function getUserListingDetails() {
+        $userID = $_SESSION["userID"];
+
+
+
+        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE ownerID=?';
+
+        $statement = $this->dbHandle->prepare($sqlQuery); //Prep the PDO statement
+        $statement->bindParam(1, $userID); //bindParam $user to the first question mark
+        $statement->execute(); //Attempts to execute prepped statement
+
+        $dataSet = [];
+        while ($row = $statement->fetch()) {
+            $dataSet[] = new ListingsData($row);
+        }
+        return $dataSet;
+    }
+
     /**
      * This method is made to echo the table with the appropriate information
      * @param array $input

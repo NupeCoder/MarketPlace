@@ -2,6 +2,7 @@
 
 
 require_once('UserAPI.php');
+require_once('ListingsAPI.php');
 
 class User
 {
