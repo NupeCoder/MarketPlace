@@ -1,7 +1,6 @@
 <?php
 
-
-require_once('UserAPI.php');
+ require_once('UserAPI.php');
 require_once('ListingsAPI.php');
 
 class User
@@ -14,7 +13,7 @@ class User
     public function __construct()
     {
         //--This line is for testing purposes whilst on uni PCs  - should still work on home PCs tho-------
-        session_save_path("sessions");
+        //session_save_path("sessions");
         //-----------------------------------------------------------------------------------------------
         session_start();
         $this->_userID = 0;
@@ -140,6 +139,72 @@ class User
         else
         {
             return false;
+        }
+    }
+
+    public function printUserDetails()
+    {
+        $userAPI = new UserAPI();
+
+        foreach ($userAPI->getUserDetails() as $UserData) {
+            echo $UserData->getUserID();
+
+            echo '<br>';
+            echo $UserData->getName();
+            echo '<br>';
+            echo $UserData->getEmail();
+            echo '<br>';
+            echo $UserData->getLocation();
+            echo '<br>';
+            echo $UserData->getPhoneNumber();
+            echo '<br>';
+            echo '<img src=' . $UserData->getProfilePhoto() . '>';
+            echo '<br>';
+
+            if ($UserData->getRole() == "Moderator") {
+                echo $UserData->getRole();
+            }
+        }
+
+    }
+
+
+
+    public function printUserListingDetails() {
+
+
+        $listingsAPI = new ListingsAPI();
+
+
+        echo '<h2>' . "Listings" . '</h2>';
+        foreach ($listingsAPI->getUserListingDetails() as $UserListingData) {
+
+            echo $UserListingData->getListingName();
+
+            echo '<br>';
+
+            echo $UserListingData->getDescription();
+
+            echo '<br>';
+
+            echo $UserListingData->getPrice();
+
+            echo '<br>';
+
+            echo $UserListingData->getCategory();
+
+            echo '<br>';
+
+            echo '<img src=' . $UserListingData->getItemPhoto() . '>';
+
+            echo '<br>';
+
+
+
+
+
+
+
         }
     }
 
