@@ -14,6 +14,10 @@ if(isset($_POST["LOGOUT"]))
     $userInstance->logout();
 }
 
+if(isset($_POST['SEARCH'])){
+
+}
+
 require_once('Views/dashboard.phtml');
 
 

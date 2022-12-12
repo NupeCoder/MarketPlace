@@ -92,6 +92,7 @@ footer ul li:hover a {
 
 .card {
     display: inline-block;
+    height: 32em;
 }
 
 .sidebar {
@@ -102,8 +103,4 @@ footer ul li:hover a {
     z-index: 100;
     box-shadow: inset -1px 0 0 rgb(0 0 0 / 10%);
     padding: 100px 0 0;
-}
-
-.select{
-    overflow: hidden
 }

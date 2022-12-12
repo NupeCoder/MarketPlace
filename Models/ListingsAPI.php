@@ -47,6 +47,62 @@ class ListingsAPI {
         return $dataSet;
     }
 
+    public function fetchSearchedListings(String $searchItemName, String $searchItemSeller, String $searchCategory,
+                                          String $searchLocation, String $searchMinPrice, String $searchMaxPrice, String $searchOrder, String $searchDirection): array
+    {
+        $sqlClauses = [];
+        $dataSet = [];
+
+        if(!empty($searchItemName))
+        {
+            $sqlClauses[] = "Listings.listingName LIKE '%$searchItemName%'";
+        }
+        if(!empty($searchItemSeller))
+        {
+            $sqlClauses[] = "Users.name LIKE '%$searchItemSeller%'";
+        }
+        if(!empty($searchCategory))
+        {
+            $sqlClauses[] = "Listings.category LIKE '%$searchCategory%'";
+        }
+        if(!empty($searchLocation))
+        {
+            $sqlClauses[] = "Listings.location LIKE '%$searchLocation%'";
+        }
+        if(!empty($searchMinPrice))
+        {
+            $sqlClauses[] = "Listings.price > '$searchMinPrice'";
+        }
+        if(!empty($searchMaxPrice))
+        {
+            $sqlClauses[] = "Listings.price < '$searchMaxPrice'";
+        }
+        if(!empty($searchOrder))
+        {
+            $sqlClauses[] = "ORDER BY '$searchOrder' '$searchDirection'";
+        }
+        if(!empty($sqlClauses))
+        {
+            $query = "SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) 
+         WHERE confirmed = 0 AND " . implode(' AND ',$sqlClauses) . ";";
+
+            var_dump($query);
+
+            $statement = $this->dbHandle->prepare($query);
+            $statement->execute();
+
+            while ($row = $statement->fetch()) {
+                $dataSet[] = new ListingsData($row);
+            }
+
+            return $dataSet;
+        }
+        else
+        {
+            return $dataSet;
+        }
+    }
+
     /**
      * This method is made to echo the table with the appropriate information
      * @param array $input
@@ -86,7 +142,7 @@ class ListingsAPI {
         {
             echo <<< EOT
                   <div class="col d-inline-flex justify-content-center g-4">
-                        <div class="card border-red" style="width: 18rem;">
+                        <div class="card border-red mb-3 me-3" style="width: 18rem;">
                             <div class="text-center border-bottom py-3">
                                 <img src="{$listing->getItemPhoto()}" class="card-img-top" alt="Product Image">
                             </div>
