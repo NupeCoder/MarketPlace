@@ -1,0 +1,53 @@
+<?php require_once('Views/other/header.phtml') ?>
+
+<br/>
+<br/>
+<br/>
+
+
+
+
+<h2>Create Listing</h2>
+<form name="myform" id="myform" method="post" action="" class="form text-primary">
+<!--    <label for="listingID">ListingID</label>-->
+<!--    <input type="text" name="listingid">-->
+<!--    <br/>-->
+<!--    <br/>-->
+    <label for="ListingName">Listing Name</label>
+    <input type="text" name="listingname" required maxlength="255">
+    <br/>
+    <br/>
+    <label for="Description">Description</label>
+    <input type="password" name="description" required maxlength="255">
+    <br/>
+    <br/>
+    <label for="price">Price</label>
+    <input type="text" name="price" required>
+    <br/>
+    <br/>
+<!--    <label for="category">Category</label>-->
+<!--    <input type="text" name="category" required>-->
+<!--    <br/>-->
+<!--    <br/>-->
+
+    <label for="Category">Category: </label>
+        <select form="myform" name="selectedOption">
+            <option value="Sports & Outdoors">Sports & Outdoors</option>
+            <option value="Clothing & Footwear">Clothing & Footwear</option>
+            <option value="Electronics & Computers">Electronics & Computers</option>
+            <option value="Baby & Children">Baby & Children</option>
+            <option value="Home & Garden">Home & Garden</option>
+            <option value="DIY & Tools">DIY & Tools</option>
+        </select>
+
+    <br/>
+    <br/>
+    <label for="ItemPhoto">Item Photo</label>
+    <input type="text" name="itemphoto" required maxlength="255">
+
+    <input type="submit" name="registerListings" value="Register">
+
+
+</form>
+
+<?php require_once('Views/other/footer.phtml') ?>

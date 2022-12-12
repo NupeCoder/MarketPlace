@@ -1,6 +1,7 @@
 <?php
 
 
+
 require_once('Models/Database.php');
 require_once('Models/ListingsData.php');
 
@@ -58,6 +59,30 @@ class ListingsAPI {
                     <tr>
                   EOT;
         }
+    }
+
+
+    public function registerListing($givenListingName,$givenDescription,$givenPrice,$givenCategory,$givenItemPhoto)
+    {
+
+        $ownerID = $_SESSION["userID"];
+
+
+        $confirmedStatus = 0;
+        $sqlQuery = "INSERT into Listings (listingName,description,price,confirmed,category,itemPhoto, ownerID) VALUES (?,?,?,?,?,?,?)";
+        $statement = $this->dbHandle->prepare($sqlQuery);
+
+
+        $statement->bindParam(1,$givenListingName);
+        $statement->bindParam(2,$givenDescription);
+        $statement->bindParam(3,$givenPrice);
+        $statement->bindParam(4,$confirmedStatus);
+        $statement->bindParam(5,$givenCategory);
+        $statement->bindParam(6,$givenItemPhoto);
+        $statement->bindParam(7,$ownerID);
+
+        return $statement->execute();
+
     }
 
 
