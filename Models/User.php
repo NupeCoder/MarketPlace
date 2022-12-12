@@ -6,33 +6,41 @@ require_once('ListingsAPI.php');
 class User
 {
     private ?int $_userID;
-    private string $_name;
+    private ?string $_name;
     private bool $_loggedIn;
-    private string $_profilePicURL;
+    private ?string $_profilePicURL;
+    private ?string $_location;
+    private ?string $_email;
+    private ?array $_listingIDs;
+    private ?string $_number;
 
     public function __construct()
     {
         //--This line is for testing purposes whilst on uni PCs  - should still work on home PCs tho-------
-        //session_save_path("sessions");
+        session_save_path("sessions");
         //-----------------------------------------------------------------------------------------------
         session_start();
         $this->_userID = 0;
         $this->_name = "User";
         $this->_loggedIn = false;
         $this->_profilePicURL = "images/default.png";
-
-
-
-
+        $this->_location = "N/A";
+        $this->_email = "none";
+        $this->_number = "none";
+        $this->_listingIDs = [];
 
         if(isset($_SESSION["loginStatus"]))
         {
             if($_SESSION["loginStatus"])
             {
-                //$this->_userID = $_SESSION["userID"];
+                $this->_userID = $_SESSION["userID"];
                 $this->_loggedIn = true;
                 $this->_name = $_SESSION["fullName"];
+                $this->_location = $_SESSION['location'];
+                $this->_email = $_SESSION['email'];
+                $this->_listingIDs = $_SESSION['listingIDs'];
                 $this->_profilePicURL = $_SESSION["profilePhoto"];
+                $this->_number = $_SESSION['number'];
             }
         } else
         {
@@ -102,34 +110,20 @@ class User
     public function authenticateUser($user, $pass): bool
     {
         $userSet = new UserAPI();
-
-        //$validatedUsers = $userSet->userValidation($user, $pass);
-
         $_validatedUsers = $userSet->userValidation($user, $pass);
 
         if (count($_validatedUsers) >= 1)
         {
-
-
-
-            /*
-            $this->_userData->setUserID($validatedUsers[0]->getUserID());
-            $this->_userData->setName($validatedUsers[0]->getName());
-            $this->_userData->setEmail($validatedUsers[0]->getEmail());
-            $this->_userData->setPassword($validatedUsers[0]->getPassword());
-            $this->_userData->setLocation($validatedUsers[0]->getLocation());
-            $this->_userData->setPhoneNumber($validatedUsers[0]->getPhoneNumber());
-            $this->_userData->setProfilePhoto($validatedUsers[0]->getProfilePhoto());
-            $this->_userData->setRole($validatedUsers[0]->getRole());
-*/
-
-
+            $listingsAPI = new ListingsAPI();
 
             $_SESSION["loginStatus"] = true;
             $_SESSION["fullName"] = $_validatedUsers[0]->getName();
             $_SESSION["profilePhoto"] = $_validatedUsers[0]->getProfilePhoto();
             $_SESSION["userID"] = $_validatedUsers[0]->getUserID(); // we will use this for getting user details
-
+            $_SESSION['location'] = $_validatedUsers[0]->getLocation();
+            $_SESSION['email'] = $_validatedUsers[0]->getEmail();
+            $_SESSION['number'] = $_validatedUsers[0]->getPhoneNumber();
+            $_SESSION['listingIDs'] = $listingsAPI->getUserListingDetails();
 
             $this->_loggedIn = true;
             $this->_name = $_validatedUsers[0]->getName();
@@ -139,78 +133,6 @@ class User
         else
         {
             return false;
-        }
-    }
-
-    public function printUserDetails()
-    {
-        $userAPI = new UserAPI();
-
-        foreach ($userAPI->getUserDetails() as $UserData) {
-
-
-            echo '<h2>' . "Welcome Back, " . $UserData->getName() . '</h2>';
-
-
-            echo '<img src=' . $UserData->getProfilePhoto() . '>';
-
-            echo '<br>';
-            echo '<br>';
-
-
-            echo "Email: " . $UserData->getEmail();
-            echo '<br>';
-            echo "Branch Location" . $UserData->getLocation();
-            echo '<br>';
-            echo "Phone Number: " . $UserData->getPhoneNumber();
-            echo '<br>';
-
-            echo '<br>';
-
-            if ($UserData->getRole() == "Moderator") {
-                echo $UserData->getRole();
-            }
-        }
-
-    }
-
-
-
-    public function printUserListingDetails() {
-
-
-        $listingsAPI = new ListingsAPI();
-
-
-        echo '<h2>' . "Listings" . '</h2>';
-        foreach ($listingsAPI->getUserListingDetails() as $UserListingData) {
-
-            echo $UserListingData->getListingName();
-
-            echo '<br>';
-
-            echo $UserListingData->getDescription();
-
-            echo '<br>';
-
-            echo $UserListingData->getPrice();
-
-            echo '<br>';
-
-            echo $UserListingData->getCategory();
-
-            echo '<br>';
-
-            echo '<img src=' . $UserListingData->getItemPhoto() . '>';
-
-            echo '<br>';
-
-
-
-
-
-
-
         }
     }
 

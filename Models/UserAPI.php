@@ -41,9 +41,6 @@ class UserAPI
         return $dataSet;
     }
 
-
-
-
     public function getUserDetails() {
 
         $userID = $_SESSION["userID"];
