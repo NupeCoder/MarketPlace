@@ -20,6 +20,8 @@
 
 </head>
 
+<body class="d-flex flex-column h-100 pt-auto">
+
 <header>
     <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top space border-bottom">
         <div class="container-fluid">
@@ -56,12 +58,69 @@
     </nav>
 </header>
 
-<body class="d-flex flex-column h-100 pt-auto">
-
 <!-- Begin page content -->
-<main class="flex-shrink-0">
-
-    <div class="container">
-
+<main class="flex-shrink-0 ">
+    <div class="container-fluid">
         <div class="row">
-            <section id="content" class="col-xs-6 col-sm-9 col-md-10">
+            <div id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <div class="nav flex-column ms-3">
+                        <form>
+                            <h5>Filter listings</h5>
+                            <h6>Item name</h6>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="searchName">
+                            </div>
+                            <h6>Seller</h6>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="sellerName">
+                            </div>
+                            <h6>Category</h6>
+                            <div class="mb-3">
+                                <select class="select w-75" id="categoryFilter">
+                                    <option value="0">All categories</option>
+                                    <option value="1">Baby & Children</option>
+                                    <option value="2">Clothing & Footwear</option>
+                                    <option value="3">DIY & Tools</option>
+                                    <option value="4">Electronics & Computers</option>
+                                    <option value="5">Home & Garden</option>
+                                    <option value="6">Jewellery & Accessories</option>
+                                    <option value="7">Sports & Outdoors</option>
+                                </select>
+                            </div>
+                            <h6>Seller Location</h6>
+                            <div class="mb-3">
+                                <select class="select w-75" id="locationFilter">
+                                    <option value="0">All locations</option>
+                                    <option value="1">Bristol</option>
+                                    <option value="2">London</option>
+                                    <option value="3">Manchester</option>
+                                </select>
+                            </div>
+                            <h6>Price range</h6>
+                            <div class="mb-3">
+                                <label for="minSearch">Minimum</label>
+                                <input type="text" class="form-control w-25" id="minSearch" value="0">
+                                <label for="maxSearch">Maximum</label>
+                                <input type="text" class="form-control w-25" id="maxSearch">
+                            </div>
+                            <h5>Order by</h5>
+                            <div class="mb-3">
+                                <select class="select w-75" id="orderFilter">
+                                    <option value="0">None</option>
+                                    <option value="1">Listing name (A-Z)</option>
+                                    <option value="2">Listing name (Z-A)</option>
+                                    <option value="3">Cost (Low-High)</option>
+                                    <option value="4">Cost (High-Low)</option>
+                                    <option value="5">Listing age (Newest-Oldest)</option>
+                                    <option value="6">Listing age (Oldest-Newest)</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-danger">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <main class="col-md-9 ms-sm-auto col-lg-10 py-0 text-center">
+

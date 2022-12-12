@@ -21,7 +21,21 @@ class ListingsAPI {
 
     public function fetchAllConfirmedListings(): array
     {
-        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed=1';
+        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed = 1';
+
+        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
+        $statement->execute(); // execute the PDO statement
+
+        $dataSet = [];
+        while ($row = $statement->fetch()) {
+            $dataSet[] = new ListingsData($row);
+        }
+        return $dataSet;
+    }
+
+    public function fetchAllUnconfirmedListings(): array
+    {
+        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed = 0';
 
         $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
         $statement->execute(); // execute the PDO statement
@@ -52,7 +66,7 @@ class ListingsAPI {
                        <td>{$listing->getCategory()}</td>
                        <td>
                             <img src="{$listing->getItemPhoto()} " style="height:64px; width:64px; border-radius: 25%; border: 
-                            2px solid #328135;" alt="This is a profile photo">
+                            2px solid #328135;" alt="This is a listing photo">
                        </td>
                        <td><p>Owner's Name is: </p>{$listing->getName()}</td>
                     <tr>
@@ -71,16 +85,22 @@ class ListingsAPI {
         foreach ($input as $listing)
         {
             echo <<< EOT
-                    <div class="card" style="width: 18rem;">
-                        <img src="{$listing->getItemPhoto()}" class="card-img-top alt="Product Image">
-                        <div class="card-body">
-                            <h5 class="card-title">{$listing->getListingName()}</h5>
-                            <h6 class="card-text">{$listing->getCategory()}</h6>
-                            <p class="card-text">{$listing->getDescription()} - The price is £{$listing->getPrice()}</p>
-                            <p class="card-text">Seller: {$listing->getName()}</p><img src="{$listing->getProfilePhoto()}" alt="Seller Profile Picture">
-                            <a href="#" class="btn btn-outline-danger">Send a Message</a>
+                  <div class="col d-inline-flex justify-content-center g-4">
+                        <div class="card border-red" style="width: 18rem;">
+                            <div class="text-center border-bottom py-3">
+                                <img src="{$listing->getItemPhoto()}" class="card-img-top" alt="Product Image">
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{$listing->getListingName()}</h5>
+                                <h6 class="card-text text-muted">{$listing->getCategory()}</h6>
+                                <h5 class="card-text">£{$listing->getPrice()}</h5>
+                                <p class="card-text">{$listing->getDescription()}</p>
+                                <p class="card-footer">Seller: {$listing->getName()}</p>
+                                <img src="{$listing->getProfilePhoto()}"  class="card-img-profile" alt="Seller Profile Picture">
+                                <a href="#" class="btn btn-outline-danger">Send a Message</a>
+                            </div>
                         </div>
-                    </div>
+                   </div>
                   EOT;
         }
     }

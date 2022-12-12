@@ -1,10 +1,5 @@
 <?php require_once('Views/other/header.phtml');?>
-<div class="card" style="width: 18rem;">
-    <img src="/images/defaultItem.svg" class="card-img-top alt="Prodcuct Image">
-    <div class="card-body">
-        <h5 class="card-title">Product Name</h5>
-        <p class="card-text">Lorem ipsum</p>
-        <a href="#" class="btn btn-outline-danger">Send a Message</a>
-    </div>
-</div>
+
+<?php $listingAPI->createCards($listingAPI->fetchAllConfirmedListings()); ?>
+
 <?php require_once('Views/other/footer.phtml'); ?>
