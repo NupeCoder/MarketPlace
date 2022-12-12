@@ -96,9 +96,7 @@ class User
         return $this->_userID;
     }
 
-    public function getUserData() {
-        return $this->_validatedUsers;
-    }
+
 
 
     /**
