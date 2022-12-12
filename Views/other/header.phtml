@@ -68,16 +68,16 @@
                         <form>
                             <h5>Filter listings</h5>
                             <h6>Item name</h6>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" id="searchName">
+                            <div class="row mb-3 col-12">
+                                <input type="text" class="form-control w-100" id="searchName">
                             </div>
                             <h6>Seller</h6>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" id="sellerName">
+                            <div class="row mb-3 col-12">
+                                <input type="text" class="form-control w-100" id="sellerName">
                             </div>
                             <h6>Category</h6>
-                            <div class="mb-3">
-                                <select class="select w-75" id="categoryFilter">
+                            <div class="row mb-3 col-12">
+                                <select class="select col-12" id="categoryFilter">
                                     <option value="0">All categories</option>
                                     <option value="1">Baby & Children</option>
                                     <option value="2">Clothing & Footwear</option>
@@ -89,8 +89,8 @@
                                 </select>
                             </div>
                             <h6>Seller Location</h6>
-                            <div class="mb-3">
-                                <select class="select w-75" id="locationFilter">
+                            <div class="row mb-3 col-12 w-100">
+                                <select class="select col-12" id="locationFilter">
                                     <option value="0">All locations</option>
                                     <option value="1">Bristol</option>
                                     <option value="2">London</option>
@@ -98,15 +98,19 @@
                                 </select>
                             </div>
                             <h6>Price range</h6>
-                            <div class="mb-3">
-                                <label for="minSearch">Minimum</label>
-                                <input type="text" class="form-control w-25" id="minSearch" value="0">
-                                <label for="maxSearch">Maximum</label>
-                                <input type="text" class="form-control w-25" id="maxSearch">
+                            <div class="row mb-3 col-12">
+                                <div class="col-6">
+                                    <label for="minSearch">Minimum</label>
+                                    <input type="text" class="form-control w-75" id="minSearch" value="0">
+                                </div>
+                                <div class="col-6">
+                                    <label for="maxSearch">Maximum</label>
+                                    <input type="text" class="form-control w-75" id="maxSearch">
+                                </div>
                             </div>
                             <h5>Order by</h5>
-                            <div class="mb-3">
-                                <select class="select w-75" id="orderFilter">
+                            <div class="row mb-3 col-12">
+                                <select class="select col-12" id="orderFilter">
                                     <option value="0">None</option>
                                     <option value="1">Listing name (A-Z)</option>
                                     <option value="2">Listing name (Z-A)</option>
