@@ -147,18 +147,24 @@ class User
         $userAPI = new UserAPI();
 
         foreach ($userAPI->getUserDetails() as $UserData) {
-            echo $UserData->getUserID();
+
+
+            echo '<h2>' . "Welcome Back, " . $UserData->getName() . '</h2>';
+
+
+            echo '<img src=' . $UserData->getProfilePhoto() . '>';
 
             echo '<br>';
-            echo $UserData->getName();
             echo '<br>';
-            echo $UserData->getEmail();
+
+
+            echo "Email: " . $UserData->getEmail();
             echo '<br>';
-            echo $UserData->getLocation();
+            echo "Branch Location" . $UserData->getLocation();
             echo '<br>';
-            echo $UserData->getPhoneNumber();
+            echo "Phone Number: " . $UserData->getPhoneNumber();
             echo '<br>';
-            echo '<img src=' . $UserData->getProfilePhoto() . '>';
+
             echo '<br>';
 
             if ($UserData->getRole() == "Moderator") {

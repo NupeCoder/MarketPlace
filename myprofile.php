@@ -6,6 +6,9 @@ require_once('Models/User.php');
 
 
 
+
+
+
 $currentUser = new User(); // sets session id
 
 
