@@ -33,6 +33,22 @@ class ListingsAPI {
         return $dataSet;
     }
 
+    public function fetchUserListings(): array
+    {
+        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE userID = ?';
+
+        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
+        $statement->bindParam(1, $_SESSION['userID']);
+        $statement->execute(); // execute the PDO statement
+
+        $dataSet = [];
+        while ($row = $statement->fetch()) {
+            $dataSet[] = new ListingsData($row);
+        }
+        return $dataSet;
+    }
+
+
     public function fetchAllUnconfirmedListings(): array
     {
         $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed = 0';
@@ -205,7 +221,6 @@ class ListingsAPI {
                             <img src="{$listing->getItemPhoto()} " style="height:64px; width:64px; border-radius: 25%; border: 
                             2px solid #328135;" alt="This is a listing photo">
                        </td>
-                       <td><p>Owner's Name is: </p>{$listing->getName()}</td>
                     <tr>
                   EOT;
         }
