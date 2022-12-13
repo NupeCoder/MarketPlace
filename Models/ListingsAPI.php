@@ -49,6 +49,8 @@ class ListingsAPI {
     }
 
 
+
+
     public function fetchAllUnconfirmedListings(): array
     {
         $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed = 0';
@@ -61,6 +63,68 @@ class ListingsAPI {
             $dataSet[] = new ListingsData($row);
         }
         return $dataSet;
+    }
+
+    public function fetchCurrentListing(): ListingsData
+    {
+        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE listingID = ?';
+
+        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
+        $statement->bindParam(1, $_SESSION['EditID']);
+        $statement->execute(); // execute the PDO statement
+
+        $row = $statement->fetch();
+        $dataObj = new ListingsData($row);
+
+        return $dataObj;
+    }
+
+    public function editListing($nameIn, $descIn, $priceIn, $categoryIn): void
+    {
+        $sqlClauses = [];
+
+        if(!empty($categoryIn))
+        {
+            $searchCategory = match ($categoryIn) {
+                1 => "Baby & Children",
+                2 => "Clothing & Footwear",
+                3 => "DIY & Tools",
+                4 => "Electronics & Computers",
+                5 => "Home & Garden",
+                6 => "Jewellery & Accessories",
+                7 => "Sports & Outdoors",
+                default => throw new \Exception('Unexpected match value'),
+            };
+        }
+
+        if(!empty($nameIn) && $nameIn != ($editObj->getListingName()))
+        {
+            $sqlClauses[] = "Listings.listingName = $nameIn";
+        }
+        if(!empty($descIn) && $descIn != ($editObj->getDescription()))
+        {
+            $sqlClauses[] = "Listings.description = $descIn";
+        }
+        if(!empty($priceIn) && $priceIn != ($editObj->getPrice()))
+        {
+            $sqlClauses[] = "Listings.price = $priceIn";
+        }
+        if(!empty($categoryIn) && $categoryIn != ($editObj->getCategory()))
+        {
+            $sqlClauses[] = "Listings.category = $categoryIn";
+        }
+
+        if (!empty($sqlClauses))
+        {
+            $query = "UPDATE Listings SET " . implode(', ', $sqlClauses) . " WHERE listingID = ?";
+
+            $statement = $this->dbHandle->prepare($query);
+            $statement->bindParam(1, $_SESSION['EditID']);
+            $statement->execute();
+        } else
+        {
+            echo "Nothing has been input OR No new inputs have been detected";
+        }
     }
 
     public function fetchSearchedListings(?String $searchItemName, ?String $searchItemSeller, ?String $searchMinPrice, String $searchMaxPrice, int $searchOrderIn, int $searchCategoryIn, int $searchLocationIn): array
@@ -218,8 +282,17 @@ class ListingsAPI {
                        <td>{$listing->getPrice()}</td>
                        <td>{$listing->getCategory()}</td>
                        <td>
-                            <img src="{$listing->getItemPhoto()} " style="height:64px; width:64px; border-radius: 25%; border: 
+                            <img src="{$listing->getItemPhoto()}" style="height:64px; width:64px; border-radius: 25%; border: 
                             2px solid #328135;" alt="This is a listing photo">
+                       </td>
+                       <td>
+                       <form action="editlisting.php" method="post">
+                            <button type="submit" name="EditID" value="{$listing->getListingID()}" class="btn btn-info">Edit</button>
+                            
+                       </form>
+                            
+                            <button type="submit" name="{$listing->getListingID()}" class="btn btn-danger">Delete</button>
+                            
                        </td>
                     <tr>
                   EOT;
