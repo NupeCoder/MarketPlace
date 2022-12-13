@@ -48,7 +48,6 @@ class ListingsAPI {
         return $dataSet;
     }
 
-
     public function fetchAllUnconfirmedListings(): array
     {
         $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed = 0';

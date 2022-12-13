@@ -92,4 +92,30 @@ class UserAPI
         return $dataSet;
     }
 
+    public function changeUserDetails($newName,$newPhone,$newPass)
+    {
+        $sqlClauses = [];
+
+        if(!empty($newName))
+        {
+            $sqlClauses[] = "name = '$newName'";
+        }
+
+        if(!empty($newPhone))
+        {
+            $sqlClauses[] = "phoneNumber = '$newPhone'";
+        }
+
+        if(!empty($newPass))
+        {
+            $sqlClauses[] = "password = '$newPass'";
+        }
+
+        $sqlQuery = "UPDATE Users SET " . implode(',',$sqlClauses) . " WHERE userID = ?";
+        $statement = $this->dbHandle->prepare($sqlQuery);
+
+        $statement->bindParam(1, $_SESSION['userID']);
+
+        $statement->execute();
+    }
 }
