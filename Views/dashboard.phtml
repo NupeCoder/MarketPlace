@@ -5,6 +5,9 @@
 if(isset($_POST['SEARCH']))
 {
     $listingAPI->createCards($listingAPI->fetchSearchedListings($_POST['searchName'], $_POST['sellerName'], $_POST['minSearch'], $_POST['maxSearch'], $_POST['orderFilter'], $_POST['categoryFilter'], $_POST['locationFilter']));
+} else
+{
+    $listingAPI->createCards($listingAPI->fetchAllConfirmedListings());
 }
 ?>
 

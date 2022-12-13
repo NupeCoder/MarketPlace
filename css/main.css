@@ -4,7 +4,7 @@ html
 }
 body
 {
-    height: 100%;
+    height: 400%;
     margin: 0;
     padding: 0;
     background: rgb(255,255,255);
@@ -19,14 +19,24 @@ body
 
 main
 {
-    padding-top: 100px;
     padding-bottom: 100px;
 }
+
+#main-content
+{
+    padding-top: 100px;
+}
+
 
 .text-shrink
 {
     width: 50%;
     margin: 0 auto;
+}
+
+.table {
+    margin: auto;
+    width: 50% !important;
 }
 
 .border-red
@@ -76,10 +86,17 @@ footer{
     Width: 100%;
     bottom: 0;
 }
+
 footer ul li:hover a
 {
     color: #d50032 !important;
     text-decoration: underline;
+}
+
+footer ul li a
+{
+    color: #000000 !important;
+    text-decoration: none;
 }
 
 .card-img-top
