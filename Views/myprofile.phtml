@@ -6,7 +6,7 @@ require_once('Views/other/headerAlt.phtml');
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="<?php echo $_SESSION['profilePhoto'] ?>">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" alt="profile picture" src="<?php echo $_SESSION['profilePhoto'] ?>">
                 <span class="font-weight-bold"><?php echo $_SESSION['fullName'] ?></span>
                 <span class="text-muted"><?php echo $_SESSION['email'] ?></span><span></span>
             </div>
@@ -23,6 +23,11 @@ require_once('Views/other/headerAlt.phtml');
                     <div class="col-md-12"><label class="labels">Confirm New Password</label><input type="text" class="form-control" placeholder="Enter New Password" value=""></div>
                 </div>
                 <div class="mt-3"><button class="btn btn-danger profile-button" type="button">Save Profile</button></div>
+                <div class="position-end">
+                    <form method="post">
+                        <button name="teamsbutton" type="submit" class="btn btn-info">TEAMS</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -39,7 +44,7 @@ require_once('Views/other/headerAlt.phtml');
         </tr>
 </div>
 
-</div>
+
 <?php require_once('Views/other/footer.phtml'); ?>
 
 
