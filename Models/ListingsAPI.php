@@ -21,7 +21,7 @@ class ListingsAPI {
 
     public function fetchAllConfirmedListings(): array
     {
-        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed = 1';
+        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed = 1;';
 
         $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
         $statement->execute(); // execute the PDO statement
@@ -47,12 +47,80 @@ class ListingsAPI {
         return $dataSet;
     }
 
-    public function fetchSearchedListings(String $searchItemName, String $searchItemSeller, String $searchCategory,
-                                          String $searchLocation, String $searchMinPrice, String $searchMaxPrice, String $searchOrder, String $searchDirection): array
+    public function fetchSearchedListings(?String $searchItemName, ?String $searchItemSeller, ?String $searchMinPrice, String $searchMaxPrice, int $searchOrderIn, int $searchCategoryIn, int $searchLocationIn): array
     {
         $sqlClauses = [];
         $dataSet = [];
 
+        $searchOrder = "";
+        $searchDirection = "";
+
+
+        if(!empty($searchCategoryIn))
+        {
+            $searchCategory = match ($searchCategoryIn) {
+                1 => "Baby & Children",
+                2 => "Clothing & Footwear",
+                3 => "DIY & Tools",
+                4 => "Electronics & Computers",
+                5 => "Home & Garden",
+                6 => "Jewellery & Accessories",
+                7 => "Sports & Outdoors",
+                0 => "",
+                default => throw new \Exception('Unexpected match value'),
+            };
+        }
+
+        if(!empty($searchLocationIn))
+        {
+            $searchLocation = match ($searchLocationIn) {
+                1 => "Bristol",
+                2 => "London",
+                3 => "Manchester",
+                default => "",
+            };
+        }
+
+        if(!empty($searchOrderIn))
+        {
+            switch ($searchOrder)
+            {
+                case 1:
+                    $searchOrder = "listingName";
+                    $searchDirection = "ASC";
+                    break;
+
+                case 2:
+                    $searchOrder = "listingName";
+                    $searchDirection = "DESC";
+                    break;
+
+                case 3:
+                    $searchOrder = "price";
+                    $searchDirection = "ASC";
+                    break;
+
+                case 4:
+                    $searchOrder = "price";
+                    $searchDirection = "DESC";
+                    break;
+
+                case 5:
+                    $searchOrder = "listingID";
+                    $searchDirection = "DESC";
+                    break;
+
+                case 6:
+                    $searchOrder = "listingID";
+                    $searchDirection = "ASC";
+                    break;
+
+                default:
+                    $searchOrder = "";
+                    $searchDirection = "";
+            }
+
+        }
         if(!empty($searchItemName))
         {
             $sqlClauses[] = "Listings.listingName LIKE '%$searchItemName%'";
@@ -63,30 +131,43 @@ class ListingsAPI {
         }
         if(!empty($searchCategory))
         {
-            $sqlClauses[] = "Listings.category LIKE '%$searchCategory%'";
+            $sqlClauses[] = "Listings.category LIKE '$searchCategory'";
         }
         if(!empty($searchLocation))
         {
-            $sqlClauses[] = "Listings.location LIKE '%$searchLocation%'";
+            $sqlClauses[] = "Users.location LIKE '$searchLocation'";
         }
         if(!empty($searchMinPrice))
         {
-            $sqlClauses[] = "Listings.price > '$searchMinPrice'";
+            $sqlClauses[] = "Listings.price > $searchMinPrice";
         }
         if(!empty($searchMaxPrice))
         {
-            $sqlClauses[] = "Listings.price < '$searchMaxPrice'";
+            $sqlClauses[] = "Listings.price < $searchMaxPrice";
         }
         if(!empty($searchOrder))
         {
-            $sqlClauses[] = "ORDER BY '$searchOrder' '$searchDirection'";
+            $sqlClauses[] = "ORDER BY $searchOrder $searchDirection";
         }
-        if(!empty($sqlClauses))
+
+        if((!empty($sqlClauses)) && (!empty($searchOrder)) && (count($sqlClauses) == 1))
         {
             $query = "SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) 
-         WHERE confirmed = 0 AND " . implode(' AND ',$sqlClauses) . ";";
+         WHERE confirmed = 1 " . implode(' AND ', $sqlClauses);
 
-            var_dump($query);
+            $statement = $this->dbHandle->prepare($query);
+            $statement->execute();
+
+            while ($row = $statement->fetch()) {
+                $dataSet[] = new ListingsData($row);
+            }
+
+            return $dataSet;
+
+        } elseif (!empty($sqlClauses))
+        {
+            $query = "SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) 
+         WHERE confirmed = 1 AND " . implode(' AND ',$sqlClauses) ;
 
             $statement = $this->dbHandle->prepare($query);
             $statement->execute();
@@ -99,7 +180,7 @@ class ListingsAPI {
         }
         else
         {
-            return $dataSet;
+            return $this->fetchAllConfirmedListings();
         }
     }
 

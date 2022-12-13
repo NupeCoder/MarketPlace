@@ -64,20 +64,20 @@
         <div class="row">
             <div id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="position-sticky pt-3 sidebar-sticky">
-                    <div class="nav flex-column ms-3">
-                        <form>
+                    <div class="nav flex-column ms-3 px-3">
+                        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                             <h5>Filter listings</h5>
                             <h6>Item name</h6>
                             <div class="row mb-3 col-12">
-                                <input type="text" class="form-control w-100" id="searchName">
+                                <input type="text" class="form-control w-100" name="searchName" id="searchName">
                             </div>
                             <h6>Seller</h6>
                             <div class="row mb-3 col-12">
-                                <input type="text" class="form-control w-100" id="sellerName">
+                                <input type="text" class="form-control w-100" name="sellerName" id="sellerName">
                             </div>
                             <h6>Category</h6>
                             <div class="row mb-3 col-12">
-                                <select class="select col-12" id="categoryFilter">
+                                <select class="select col-12" name="categoryFilter" id="categoryFilter">
                                     <option value="0">All categories</option>
                                     <option value="1">Baby & Children</option>
                                     <option value="2">Clothing & Footwear</option>
@@ -90,7 +90,7 @@
                             </div>
                             <h6>Seller Location</h6>
                             <div class="row mb-3 col-12 w-100">
-                                <select class="select col-12" id="locationFilter">
+                                <select class="select col-12" name="locationFilter" id="locationFilter">
                                     <option value="0">All locations</option>
                                     <option value="1">Bristol</option>
                                     <option value="2">London</option>
@@ -101,16 +101,16 @@
                             <div class="row mb-3 col-12">
                                 <div class="col-6">
                                     <label for="minSearch">Minimum</label>
-                                    <input type="text" class="form-control w-75" id="minSearch" value="0">
+                                    <input type="text" class="form-control w-75" name="minSearch" id="minSearch" value="0">
                                 </div>
                                 <div class="col-6">
                                     <label for="maxSearch">Maximum</label>
-                                    <input type="text" class="form-control w-75" id="maxSearch">
+                                    <input type="text" class="form-control w-75" name="maxSearch" id="maxSearch">
                                 </div>
                             </div>
                             <h5>Order by</h5>
                             <div class="row mb-3 col-12">
-                                <select class="select col-12" id="orderFilter">
+                                <select class="select col-12" name="orderFilter" id="orderFilter">
                                     <option value="0">None</option>
                                     <option value="1">Listing name (A-Z)</option>
                                     <option value="2">Listing name (Z-A)</option>

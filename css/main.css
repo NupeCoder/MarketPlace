@@ -72,30 +72,38 @@ nav ul li:hover a {
 
 footer{
     z-index: 1;
+    position: fixed;
+    Width: 100%;
+    bottom: 0;
 }
-footer ul li:hover a {
+footer ul li:hover a
+{
     color: #d50032 !important;
     text-decoration: underline;
 }
 
-.card-img-top {
+.card-img-top
+{
     width: 50%;
     height: auto;
     object-fit: cover;
 }
 
-.card-img-profile{
+.card-img-profile
+{
     width: 25%;
     height: auto;
     object-fit: cover;
 }
 
-.card {
+.card
+{
     display: inline-block;
     height: 32em;
 }
 
-.sidebar {
+.sidebar
+{
     position: fixed;
     top: 0;
     bottom: 0;
