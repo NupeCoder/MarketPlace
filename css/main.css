@@ -27,16 +27,10 @@ main
     padding-top: 100px;
 }
 
-
 .text-shrink
 {
     width: 50%;
     margin: 0 auto;
-}
-
-.table {
-    margin: auto;
-    width: 50% !important;
 }
 
 .border-red
@@ -128,4 +122,20 @@ footer ul li a
     z-index: 100;
     box-shadow: inset -1px 0 0 rgb(0 0 0 / 10%);
     padding: 100px 0 0;
+}
+
+.profile-table-header{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+#profile-table{
+    height: 17.5rem;
+    overflow: auto;
+}
+
+#profile-table th{
+    height: max-content;
+    overflow: auto;
 }

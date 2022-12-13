@@ -83,7 +83,6 @@ class ListingsAPI {
                 6 => "Jewellery & Accessories",
                 7 => "Sports & Outdoors",
                 0 => "",
-                default => throw new \Exception('Unexpected match value'),
             };
         }
 
@@ -93,7 +92,7 @@ class ListingsAPI {
                 1 => "Bristol",
                 2 => "London",
                 3 => "Manchester",
-                default => "",
+                0 => "",
             };
         }
 
@@ -212,7 +211,7 @@ class ListingsAPI {
         {
             echo <<< EOT
                     <tr>
-                       <th scope="row">{$listing->getListingID()}</th>
+                       <th class="justify-content-center" scope="row">{$listing->getListingID()}</th>
                        <td>{$listing->getListingName()}</td>
                        <td>{$listing->getDescription()}</td>
                        <td>{$listing->getPrice()}</td>
