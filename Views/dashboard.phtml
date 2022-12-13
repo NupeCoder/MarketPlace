@@ -1,12 +1,14 @@
 <?php require_once('Views/other/header.phtml');?>
 
-<table class="table table-light table-striped table-responsive border">
-    <tr>
-        <th scope="col">Listing ID</th>
-        <th scope="col">Product Name</th>
-        <th scope="col">Description</th>
-        <th scope="col">Price</th>
-        <th scope="col">Category</th>
-        <th scope="col">Product Image</th>
-    </tr>
+
+<?php
+if(isset($_POST['SEARCH']))
+{
+    $listingAPI->createCards($listingAPI->fetchSearchedListings($_POST['searchName'], $_POST['sellerName'], $_POST['minSearch'], $_POST['maxSearch'], $_POST['orderFilter'], $_POST['categoryFilter'], $_POST['locationFilter']));
+} else
+{
+    $listingAPI->createCards($listingAPI->fetchAllConfirmedListings());
+}
+?>
+
 <?php require_once('Views/other/footer.phtml'); ?>

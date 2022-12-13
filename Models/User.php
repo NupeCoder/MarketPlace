@@ -27,7 +27,6 @@ class User
         $this->_location = "N/A";
         $this->_email = "none";
         $this->_number = "none";
-        $this->_listingIDs = [];
 
         if(isset($_SESSION["loginStatus"]))
         {
@@ -38,7 +37,6 @@ class User
                 $this->_name = $_SESSION["fullName"];
                 $this->_location = $_SESSION['location'];
                 $this->_email = $_SESSION['email'];
-                $this->_listingIDs = $_SESSION['listingIDs'];
                 $this->_profilePicURL = $_SESSION["profilePhoto"];
                 $this->_number = $_SESSION['number'];
             }
@@ -121,7 +119,6 @@ class User
             $_SESSION['location'] = $_validatedUsers[0]->getLocation();
             $_SESSION['email'] = $_validatedUsers[0]->getEmail();
             $_SESSION['number'] = $_validatedUsers[0]->getPhoneNumber();
-            $_SESSION['listingIDs'] = $listingsAPI->getUserListingDetails();
 
             $this->_loggedIn = true;
             $this->_name = $_validatedUsers[0]->getName();

@@ -14,12 +14,5 @@ if(isset($_POST["LOGOUT"]))
     $userInstance->logout();
 }
 
+
 require_once('Views/dashboard.phtml');
-
-$listingAPI->populateTable($listingAPI->fetchAllConfirmedListings());
-
-
-
-
-
-

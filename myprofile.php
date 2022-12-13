@@ -10,4 +10,4 @@ $listingAPI = new ListingsAPI();
 
 require_once('Views/myprofile.phtml');
 
-$listingAPI->populateTable($listingAPI->getUserListingDetails());
+$listingAPI->populateTable($listingAPI->fetchUserListings());
