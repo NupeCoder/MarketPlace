@@ -6,7 +6,7 @@ body
 {
     height: 100%;
     margin: 0;
-    padding-top: 10px;
+    padding: 0;
     background: rgb(255,255,255);
     background: -moz-linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(138,138,138,0.5) 100%);
     background: -webkit-linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(138,138,138,0.5) 100%);
@@ -14,6 +14,13 @@ body
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#8a8a8a",GradientType=1);
     background-size: 400% 400%;
     background-repeat: no-repeat;
+    width: 100%;
+}
+
+main
+{
+    padding-top: 100px;
+    padding-bottom: 100px;
 }
 
 .text-shrink
@@ -54,70 +61,54 @@ body
  }
 
 .nav-space {
-    padding-left:20px;
-    padding-right:20px;
+    padding-left:0px;
+    padding-right:0px;
 }
 
 nav ul li:hover a {
     color: #d50032 !important;
     text-decoration: underline;
 }
-footer ul li:hover a {
+
+footer{
+    z-index: 1;
+    position: fixed;
+    Width: 100%;
+    bottom: 0;
+}
+footer ul li:hover a
+{
     color: #d50032 !important;
     text-decoration: underline;
 }
-table{
-    margin-left: 10%;
-    width: 70%;
-}
-table tbody, table thead
+
+.card-img-top
 {
-    display: block;
+    width: 50%;
+    height: auto;
+    object-fit: cover;
 }
-table tbody
+
+.card-img-profile
 {
-    overflow: auto;
-    height: 75vh;
+    width: 25%;
+    height: auto;
+    object-fit: cover;
 }
-th
+
+.card
 {
-    width: 10%;
+    display: inline-block;
+    height: 32em;
 }
-td
+
+.sidebar
 {
-    width: 10%;
-}
-
-.form-control:focus {
-    box-shadow: none;
-    border-color: #e80000
-}
-
-.profile-button {
-    background: rgb(166, 29, 29);
-    box-shadow: none;
-    border: none
-}
-
-.profile-button:hover {
-    background: #540d0d
-}
-
-.profile-button:focus {
-    background: #ff0000;
-    box-shadow: none
-}
-
-.profile-button:active {
-    background: #861d1d;
-    box-shadow: none
-}
-
-.back:hover {
-    color: #682773;
-    cursor: pointer
-}
-
-.labels {
-    font-size: 11px
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: inset -1px 0 0 rgb(0 0 0 / 10%);
+    padding: 100px 0 0;
 }
