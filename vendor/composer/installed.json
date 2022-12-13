@@ -1,0 +1,57 @@
+{
+    "packages": [
+        {
+            "name": "sebbmeyer/php-microsoft-teams-connector",
+            "version": "0.2.2",
+            "version_normalized": "0.2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebbmeyer/php-microsoft-teams-connector.git",
+                "reference": "b8440c10856581b06575592864027c439a2599f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebbmeyer/php-microsoft-teams-connector/zipball/b8440c10856581b06575592864027c439a2599f2",
+                "reference": "b8440c10856581b06575592864027c439a2599f2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "time": "2021-01-23T15:03:04+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Sebbmyr\\Teams\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Meyer",
+                    "email": "sebbmyr@gmail.com"
+                }
+            ],
+            "description": "PHP Microsoft Teams Connector",
+            "keywords": [
+                "Teams",
+                "connector",
+                "connectors",
+                "messagecard",
+                "microsoft",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/sebbmeyer/php-microsoft-teams-connector/issues",
+                "source": "https://github.com/sebbmeyer/php-microsoft-teams-connector/tree/0.2.2"
+            },
+            "install-path": "../sebbmeyer/php-microsoft-teams-connector"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}
