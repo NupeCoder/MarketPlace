@@ -111,11 +111,14 @@ class UserAPI
             $sqlClauses[] = "password = '$newPass'";
         }
 
-        $sqlQuery = "UPDATE Users SET " . implode(',',$sqlClauses) . " WHERE userID = ?";
-        $statement = $this->dbHandle->prepare($sqlQuery);
+        if(!empty($sqlClauses))
+        {
+            $sqlQuery = "UPDATE Users SET " . implode(',',$sqlClauses) . " WHERE userID = ?";
+            $statement = $this->dbHandle->prepare($sqlQuery);
 
-        $statement->bindParam(1, $_SESSION['userID']);
+            $statement->bindParam(1, $_SESSION['userID']);
 
-        $statement->execute();
+            $statement->execute();
+        }
     }
 }

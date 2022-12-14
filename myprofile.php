@@ -12,25 +12,24 @@ require_once('Views/myprofile.phtml');
 
 $listingAPI->populateTable($listingAPI->fetchUserListings());
 
+$phpSelf  = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
+
 if(isset($_POST['changeProfile']))
 {
-    $newName = validateInput(['changeName']);
+    $newName = validateInput($_POST['changeName']);
     $newMobile =  validateInput($_POST['changeMobile']);
     $newPassword =  validateInput($_POST['changePass']);
     $confirmPassword =  validateInput($_POST['changePassConfirm']);
 
-    function validateInput($input)
-    {
-        $input = trim($input);
-        $input = stripslashes($input);
-        $input = htmlspecialchars($input);
-        return $input;
-    }
-
     if($newPassword == $confirmPassword){
-        if( (!empty($newName)) || (!empty($newMobile)) || (!empty($newPassword)) )
-        {
-            $userAPI->changeUserDetails($newName,$newMobile,$newPassword);
-        }
+        $userAPI->changeUserDetails($newName,$newMobile,$newPassword);
     }
+}
+
+function validateInput($input)
+{
+    $input = trim($input);
+    $input = stripslashes($input);
+    $input = htmlspecialchars($input);
+    return $input;
 }
