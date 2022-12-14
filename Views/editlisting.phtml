@@ -3,7 +3,7 @@
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="<?php echo $editObj->getItemPhoto() ?>">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" alt="Photo Of Item of this Listing" width="150px" src="<?php echo $editObj->getItemPhoto() ?>">
                 <span class="font-weight-bold">ID: <?php echo $_SESSION['EditID'] ?></span>
                 <span class="text-muted"><?php echo $_SESSION['email'] ?></span><span></span>
             </div>
@@ -36,18 +36,5 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <?php require_once('Views/other/footer.phtml'); ?>
