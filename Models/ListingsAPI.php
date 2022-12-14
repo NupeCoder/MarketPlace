@@ -10,12 +10,14 @@ class ListingsAPI {
     protected ?Database $dbInstance;
     protected PDO $dbHandle;
     protected $DEFAULT_PROFILE_PICTURE;
+    private $phpSelf;
 
     public function __construct()
     {
         $this->dbInstance = Database::getInstance();
         $this->dbHandle = $this->dbInstance->getDbConnection();
         $DEFAULT_PROFILE_PICTURE = "images/defaultItem.svg";
+        $phpSelf = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
     }
 
 
@@ -65,18 +67,27 @@ class ListingsAPI {
         return $dataSet;
     }
 
-    public function fetchCurrentListing(): ListingsData
+    public function fetchCurrentListing(int $editID): ListingsData
     {
         $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE listingID = ?';
 
         $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
-        $statement->bindParam(1, $_SESSION['EditID']);
+        $statement->bindParam(1, $editID);
         $statement->execute(); // execute the PDO statement
 
         $row = $statement->fetch();
         $dataObj = new ListingsData($row);
 
         return $dataObj;
+    }
+
+    public function removeChosenListing(int $removeID): void
+    {
+        $sqlQuery = 'DELETE FROM Listings WHERE listingID = ?';
+
+        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
+        $statement->bindParam(1, $removeID);
+        $statement->execute(); // execute the PDO statement
     }
 
     /**
@@ -276,6 +287,7 @@ class ListingsAPI {
 
         foreach ($input as $listing)
         {
+            $phpSelf = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
             echo <<< EOT
                     <tr>
                        <th scope="row">{$listing->getListingID()}</th>
@@ -285,16 +297,20 @@ class ListingsAPI {
                        <td>{$listing->getCategory()}</td>
                        <td>
                             <img src="{$listing->getItemPhoto()}" style="height:64px; width:64px; border-radius: 25%; border: 
-                            2px solid #328135;" alt="This is a listing photo">
+                            2px solid #c51010;" alt="This is a listing photo">
                        </td>
                        <td>
                        <form action="editlisting.php" method="post">
                             <button type="submit" name="EditID" value="{$listing->getListingID()}" class="btn btn-info">Edit</button>
                             
                        </form>
-                            
-                            <button type="submit" name="{$listing->getListingID()}" class="btn btn-danger">Delete</button>
-                            
+                       <form action="{$phpSelf}" method="post" class="was-validated">
+                        <input class="form-check-input" type="checkbox" id="myCheck" name="remember" required>
+                            <label class="form-check-label" for="myCheck">Confirm Deletion</label>
+                            <div class="valid-feedback">You may delete listing.</div>
+                            <div class="invalid-feedback">Confirm you want to delete this lsiting.</div>
+                            <button type="submit" name="DeleteID" value="{$listing->getListingID()}" class="btn btn-danger">Delete</button>
+                       </form>     
                        </td>
                     <tr>
                   EOT;
