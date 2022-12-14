@@ -79,13 +79,16 @@ class ListingsAPI {
         return $dataObj;
     }
 
-    public function editListing($nameIn, $descIn, $priceIn, $categoryIn): void
+    /**
+     * @throws Exception
+     */
+    public function editListing($nameIn, $descIn, $priceIn, int $categoryIn): void
     {
         $sqlClauses = [];
 
         if(!empty($categoryIn))
         {
-            $searchCategory = match ($categoryIn) {
+            $categoryIn = match ($categoryIn) {
                 1 => "Baby & Children",
                 2 => "Clothing & Footwear",
                 3 => "DIY & Tools",
@@ -97,27 +100,26 @@ class ListingsAPI {
             };
         }
 
-        if(!empty($nameIn) && $nameIn != ($editObj->getListingName()))
+        if(!empty($nameIn))
         {
-            $sqlClauses[] = "Listings.listingName = $nameIn";
+            $sqlClauses[] = "Listings.listingName = '$nameIn'";
         }
-        if(!empty($descIn) && $descIn != ($editObj->getDescription()))
+        if(!empty($descIn))
         {
-            $sqlClauses[] = "Listings.description = $descIn";
+            $sqlClauses[] = "Listings.description = '$descIn'";
         }
-        if(!empty($priceIn) && $priceIn != ($editObj->getPrice()))
+        if(!empty($priceIn))
         {
-            $sqlClauses[] = "Listings.price = $priceIn";
+            $sqlClauses[] = "Listings.price = '$priceIn'";
         }
-        if(!empty($categoryIn) && $categoryIn != ($editObj->getCategory()))
+        if(!empty($categoryIn))
         {
-            $sqlClauses[] = "Listings.category = $categoryIn";
+            $sqlClauses[] = "Listings.category = '$categoryIn'";
         }
 
         if (!empty($sqlClauses))
         {
             $query = "UPDATE Listings SET " . implode(', ', $sqlClauses) . " WHERE listingID = ?";
-
             $statement = $this->dbHandle->prepare($query);
             $statement->bindParam(1, $_SESSION['EditID']);
             $statement->execute();
