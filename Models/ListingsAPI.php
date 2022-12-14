@@ -2,8 +2,10 @@
 
 
 
+
 require_once('Models/Database.php');
 require_once('Models/ListingsData.php');
+
 
 
 class ListingsAPI {
@@ -62,10 +64,14 @@ class ListingsAPI {
     }
 
 
-    public function registerListing($givenListingName,$givenDescription,$givenPrice,$givenCategory,$givenItemPhoto)
+    public function registerListing($givenListingName,$givenDescription,$givenPrice,$givenCategory,$givenItemPhoto, $ownerID)
     {
 
-        $ownerID = $_SESSION["userID"];
+
+
+
+
+
 
 
         $confirmedStatus = 0;
