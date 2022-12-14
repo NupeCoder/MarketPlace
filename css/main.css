@@ -50,8 +50,14 @@ main
 
 .form-control
 {
-    width: 45%
+    width: 100%;
 }
+
+.user-form
+{
+    width: 45%;
+}
+
 .container
 {
     display: inline;

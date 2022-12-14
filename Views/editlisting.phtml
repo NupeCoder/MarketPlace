@@ -5,7 +5,7 @@
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" alt="Photo Of Item of this Listing" width="150px" src="<?php echo $editObj->getItemPhoto() ?>">
                 <span class="font-weight-bold">ID: <?php echo $_SESSION['EditID'] ?></span>
-                <span class="text-muted"><?php echo $_SESSION['email'] ?></span><span></span>
+                <!--<span class="text-muted"><?php echo $_SESSION['email'] ?></span><span></span>-->
             </div>
         </div>
         <div class="col-md-5 border-right">
@@ -17,7 +17,7 @@
                     <div class="row mt-3">
                         <div class="col-md-12"><label class="labels">Name</label><input type="text" name="editName" class="form-control" placeholder="<?php echo $editObj->getListingName() ?>" value=""></div>
                         <div class="col-md-12"><label class="labels">Description</label><input type="text" name="editDesc" class="form-control" placeholder="<?php echo $editObj->getDescription() ?>" value=""></div>
-                        <div class="col-md-12"><label class="labels">Price</label><input type="text" name="editPrice" class="form-control" placeholder="<?php echo $editObj->getPrice() ?>" value=""></div>
+                        <div class="col-md-12"><label class="labels">Price</label><input type="number" name="editPrice" class="form-control" value="<?php echo $editObj->getPrice() ?>" step="0.01"></div>
                         <div class="col-md-12">
                             <label class="labels">Category</label>
                             <select class="select form-control col-md-12" name="editCategory">

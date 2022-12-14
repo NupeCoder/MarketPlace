@@ -347,4 +347,23 @@ class ListingsAPI {
         }
     }
 
+    public function registerListing($newListingname, $newDescription, $newPrice, $newCategory, $newItemPhoto, $newOwnerID)
+    {
+
+        $confirmedStatus = 0;
+        $sqlQuery = "INSERT INTO Listings (listingName,description,price,confirmed,category,itemPhoto,ownerID) VALUES (?,?,?,?,?,?,?)";
+
+        $statement = $this->dbHandle->prepare($sqlQuery);
+
+        $statement->bindParam(1,$newListingname);
+        $statement->bindParam(2,$newDescription);
+        $statement->bindParam(3,$newPrice);
+        $statement->bindParam(4,$confirmedStatus);
+        $statement->bindParam(5,$newCategory);
+        $statement->bindParam(6,$newItemPhoto);
+        $statement->bindParam(7,$newOwnerID);
+
+        return $statement->execute();
+    }
+
 }
