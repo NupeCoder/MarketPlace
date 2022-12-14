@@ -117,8 +117,10 @@ class UserAPI
             $statement = $this->dbHandle->prepare($sqlQuery);
 
             $statement->bindParam(1, $_SESSION['userID']);
-
             $statement->execute();
+
+            $_SESSION['fullName'] = $newName;
+            $_SESSION['number'] = $newPhone;
         }
     }
 }
