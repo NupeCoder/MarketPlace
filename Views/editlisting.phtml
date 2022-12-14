@@ -1,0 +1,40 @@
+<?php require_once('Views/other/headerAlt.phtml');?>
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" alt="Photo Of Item of this Listing" width="150px" src="<?php echo $editObj->getItemPhoto() ?>">
+                <span class="font-weight-bold">ID: <?php echo $_SESSION['EditID'] ?></span>
+                <span class="text-muted"><?php echo $_SESSION['email'] ?></span><span></span>
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Edit Listing</h4>
+                </div>
+                <form method="post" action="<?php echo $phpSelf ?>"
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Name</label><input type="text" name="editName" class="form-control" placeholder="<?php echo $editObj->getListingName() ?>" value=""></div>
+                        <div class="col-md-12"><label class="labels">Description</label><input type="text" name="editDesc" class="form-control" placeholder="<?php echo $editObj->getDescription() ?>" value=""></div>
+                        <div class="col-md-12"><label class="labels">Price</label><input type="text" name="editPrice" class="form-control" placeholder="<?php echo $editObj->getPrice() ?>" value=""></div>
+                        <div class="col-md-12">
+                            <label class="labels">Category</label>
+                            <select class="select form-control col-md-12" name="editCategory">
+                                <option value="1">Baby & Children</option>
+                                <option value="2">Clothing & Footwear</option>
+                                <option value="3">DIY & Tools</option>
+                                <option value="4">Electronics & Computers</option>
+                                <option value="5">Home & Garden</option>
+                                <option value="6">Jewellery & Accessories</option>
+                                <option value="7">Sports & Outdoors</option>
+                            </select>
+                    </div>
+                    <div class="mt-3"><input class="btn btn-danger profile-button" name="EDIT" type="submit"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php require_once('Views/other/footer.phtml'); ?>

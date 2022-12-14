@@ -10,12 +10,14 @@ class ListingsAPI {
     protected ?Database $dbInstance;
     protected PDO $dbHandle;
     protected $DEFAULT_PROFILE_PICTURE;
+    private $phpSelf;
 
     public function __construct()
     {
         $this->dbInstance = Database::getInstance();
         $this->dbHandle = $this->dbInstance->getDbConnection();
         $DEFAULT_PROFILE_PICTURE = "images/defaultItem.svg";
+        $phpSelf = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
     }
 
 
@@ -48,6 +50,9 @@ class ListingsAPI {
         return $dataSet;
     }
 
+
+
+
     public function fetchAllUnconfirmedListings(): array
     {
         $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed = 0';
@@ -60,6 +65,79 @@ class ListingsAPI {
             $dataSet[] = new ListingsData($row);
         }
         return $dataSet;
+    }
+
+    public function fetchCurrentListing(int $editID): ListingsData
+    {
+        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE listingID = ?';
+
+        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
+        $statement->bindParam(1, $editID);
+        $statement->execute(); // execute the PDO statement
+
+        $row = $statement->fetch();
+        $dataObj = new ListingsData($row);
+
+        return $dataObj;
+    }
+
+    public function removeChosenListing(int $removeID): void
+    {
+        $sqlQuery = 'DELETE FROM Listings WHERE listingID = ?';
+
+        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
+        $statement->bindParam(1, $removeID);
+        $statement->execute(); // execute the PDO statement
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function editListing($nameIn, $descIn, $priceIn, int $categoryIn): void
+    {
+        $sqlClauses = [];
+
+        if(!empty($categoryIn))
+        {
+            $categoryIn = match ($categoryIn) {
+                1 => "Baby & Children",
+                2 => "Clothing & Footwear",
+                3 => "DIY & Tools",
+                4 => "Electronics & Computers",
+                5 => "Home & Garden",
+                6 => "Jewellery & Accessories",
+                7 => "Sports & Outdoors",
+                default => throw new \Exception('Unexpected match value'),
+            };
+        }
+
+        if(!empty($nameIn))
+        {
+            $sqlClauses[] = "Listings.listingName = '$nameIn'";
+        }
+        if(!empty($descIn))
+        {
+            $sqlClauses[] = "Listings.description = '$descIn'";
+        }
+        if(!empty($priceIn))
+        {
+            $sqlClauses[] = "Listings.price = '$priceIn'";
+        }
+        if(!empty($categoryIn))
+        {
+            $sqlClauses[] = "Listings.category = '$categoryIn'";
+        }
+
+        if (!empty($sqlClauses))
+        {
+            $query = "UPDATE Listings SET " . implode(', ', $sqlClauses) . " WHERE listingID = ?";
+            $statement = $this->dbHandle->prepare($query);
+            $statement->bindParam(1, $_SESSION['EditID']);
+            $statement->execute();
+        } else
+        {
+            echo "Nothing has been input OR No new inputs have been detected";
+        }
     }
 
     public function fetchSearchedListings(?String $searchItemName, ?String $searchItemSeller, ?String $searchMinPrice, String $searchMaxPrice, int $searchOrderIn, int $searchCategoryIn, int $searchLocationIn): array
@@ -82,6 +160,7 @@ class ListingsAPI {
                 6 => "Jewellery & Accessories",
                 7 => "Sports & Outdoors",
                 0 => "",
+                default => throw new \Exception('Unexpected match value'),
             };
         }
 
@@ -91,7 +170,7 @@ class ListingsAPI {
                 1 => "Bristol",
                 2 => "London",
                 3 => "Manchester",
-                0 => "",
+                default => "",
             };
         }
 
@@ -208,16 +287,29 @@ class ListingsAPI {
 
         foreach ($input as $listing)
         {
+            $phpSelf = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
             echo <<< EOT
                     <tr>
-                       <th class="justify-content-center" scope="row">{$listing->getListingID()}</th>
+                       <th scope="row">{$listing->getListingID()}</th>
                        <td>{$listing->getListingName()}</td>
                        <td>{$listing->getDescription()}</td>
                        <td>{$listing->getPrice()}</td>
                        <td>{$listing->getCategory()}</td>
                        <td>
-                            <img src="{$listing->getItemPhoto()} " style="height:64px; width:64px; border-radius: 25%; border: 
-                            2px solid #328135;" alt="This is a listing photo">
+                            <img src="{$listing->getItemPhoto()}" style="height:64px; width:64px; border-radius: 25%; border: 
+                            2px solid #c51010;" alt="This is a listing photo">
+                       </td>
+                       <td>
+                       <form action="editlisting.php" method="post">
+                            <button type="submit" name="EditID" value="{$listing->getListingID()}" class="btn btn-info">Edit</button>  
+                       </form>
+                       <form action="{$phpSelf}" method="post" class="was-validated">
+                        <input class="form-check-input" type="checkbox" id="myCheck" name="remember" required>
+                            <label class="form-check-label" for="myCheck">Confirm Deletion</label>
+                            <div class="valid-feedback">You may delete listing.</div>
+                            <div class="invalid-feedback">Confirm you want to delete this lsiting.</div>
+                            <button type="submit" name="DeleteID" value="{$listing->getListingID()}" class="btn btn-danger">Delete</button>
+                       </form>     
                        </td>
                     <tr>
                   EOT;

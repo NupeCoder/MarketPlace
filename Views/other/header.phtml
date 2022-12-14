@@ -62,7 +62,7 @@
             <div id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="position-sticky pt-3 sidebar-sticky">
                     <div class="nav flex-column ms-3 px-3">
-                        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                        <form action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL); ?>" method="post">
                             <h5>Filter listings</h5>
                             <h6>Item name</h6>
                             <div class="row mb-3 col-12">
@@ -123,5 +123,5 @@
                 </div>
             </div>
         </div>
+        <main id="main-content" class="col-md-9 ms-sm-auto col-lg-10 text-center">
 
-        <section id="main-content" class="col-md-9 ms-sm-auto col-lg-10 text-center">
