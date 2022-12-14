@@ -301,8 +301,7 @@ class ListingsAPI {
                        </td>
                        <td>
                        <form action="editlisting.php" method="post">
-                            <button type="submit" name="EditID" value="{$listing->getListingID()}" class="btn btn-info">Edit</button>
-                            
+                            <button type="submit" name="EditID" value="{$listing->getListingID()}" class="btn btn-info">Edit</button>  
                        </form>
                        <form action="{$phpSelf}" method="post" class="was-validated">
                         <input class="form-check-input" type="checkbox" id="myCheck" name="remember" required>
