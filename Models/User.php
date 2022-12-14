@@ -1,6 +1,6 @@
 <?php
 
- require_once('UserAPI.php');
+require_once('UserAPI.php');
 require_once('ListingsAPI.php');
 
 class User
@@ -122,6 +122,7 @@ class User
             $_SESSION['email'] = $_validatedUsers[0]->getEmail();
             $_SESSION['number'] = $_validatedUsers[0]->getPhoneNumber();
             $_SESSION['listingIDs'] = $listingsAPI->getUserListingDetails();
+            $_SESSION['role'] = $_validatedUsers[0]->getRole();
 
             $this->_loggedIn = true;
             $this->_name = $_validatedUsers[0]->getName();

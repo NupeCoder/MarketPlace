@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -45,6 +48,16 @@
                     <li class="nav-item nav-space">
                         <a class="nav-link text-dark" href="myprofile.php" >My Profile</a>
                     </li>
+
+                    <?php
+
+
+                    if ($_SESSION['role'] == "Moderator") {
+                        echo '<li class="nav-item nav-space">
+                        <a class="nav-link text-dark" href="approve.php" >Approve listings</a>
+                    </li>';
+                    }
+                    ?>
 
                     <li class="nav-item nav-space">
                         <form action="index.php" method="POST">
