@@ -13,14 +13,15 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Edit Listing</h4>
                 </div>
-                <form method="post" action="<?php echo $phpSelf ?>"
+                <form method="post" action="<?php $phpSelf ?>"
                     <div class="row mt-3">
                         <div class="col-md-12"><label class="labels">Name</label><input type="text" name="editName" class="form-control" placeholder="<?php echo $editObj->getListingName() ?>" value=""></div>
                         <div class="col-md-12"><label class="labels">Description</label><input type="text" name="editDesc" class="form-control" placeholder="<?php echo $editObj->getDescription() ?>" value=""></div>
-                        <div class="col-md-12"><label class="labels">Price</label><input type="number" name="editPrice" class="form-control" value="<?php echo $editObj->getPrice() ?>" step="0.01"></div>
+                        <div class="col-md-12"><label class="labels">Price</label><input type="number" name="editPrice" class="form-control" placeholder="<?php echo $editObj->getPrice() ?>" value="" step="0.01"></div>
                         <div class="col-md-12">
                             <label class="labels">Category</label>
                             <select class="select form-control col-md-12" name="editCategory">
+                                <option value="0">Select a category</option>
                                 <option value="1">Baby & Children</option>
                                 <option value="2">Clothing & Footwear</option>
                                 <option value="3">DIY & Tools</option>

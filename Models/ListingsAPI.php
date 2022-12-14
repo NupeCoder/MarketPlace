@@ -50,9 +50,6 @@ class ListingsAPI {
         return $dataSet;
     }
 
-
-
-
     public function fetchAllUnconfirmedListings(): array
     {
         $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed = 0';
@@ -107,6 +104,7 @@ class ListingsAPI {
                 5 => "Home & Garden",
                 6 => "Jewellery & Accessories",
                 7 => "Sports & Outdoors",
+                0 => "",
                 default => throw new \Exception('Unexpected match value'),
             };
         }
@@ -130,14 +128,16 @@ class ListingsAPI {
 
         if (!empty($sqlClauses))
         {
+            $sqlClauses[] = "Listings.confirmed = 0";
+
             $query = "UPDATE Listings SET " . implode(', ', $sqlClauses) . " WHERE listingID = ?";
             $statement = $this->dbHandle->prepare($query);
             $statement->bindParam(1, $_SESSION['EditID']);
             $statement->execute();
-        } else
+        } /*else
         {
             echo "Nothing has been input OR No new inputs have been detected";
-        }
+        }*/
     }
 
     public function fetchSearchedListings(?String $searchItemName, ?String $searchItemSeller, ?String $searchMinPrice, String $searchMaxPrice, int $searchOrderIn, int $searchCategoryIn, int $searchLocationIn): array
