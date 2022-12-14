@@ -17,7 +17,7 @@ class User
     public function __construct()
     {
         //--This line is for testing purposes whilst on uni PCs  - should still work on home PCs tho-------
-        session_save_path("sessions");
+        //session_save_path("sessions");
         //-----------------------------------------------------------------------------------------------
         session_start();
         $this->_userID = 0;
@@ -119,6 +119,7 @@ class User
             $_SESSION['location'] = $_validatedUsers[0]->getLocation();
             $_SESSION['email'] = $_validatedUsers[0]->getEmail();
             $_SESSION['number'] = $_validatedUsers[0]->getPhoneNumber();
+            $_SESSION['role'] = $_validatedUsers[0]->getRole();
 
             $this->_loggedIn = true;
             $this->_name = $_validatedUsers[0]->getName();
@@ -140,6 +141,8 @@ class User
         $_SESSION["loginStatus"] = false;
         unset($_SESSION["profilePhoto"]);
         unset($_SESSION["userID"]);
+        unset($_SESSION["EditID"]);
+        unset($_SESSION["DeleteID"]);
         $this->_name = "User";
         $this->_loggedIn = false;
         $this->_profilePicURL = "images/default.png";

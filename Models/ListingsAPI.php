@@ -18,29 +18,29 @@ class ListingsAPI {
         $this->dbHandle = $this->dbInstance->getDbConnection();
         $DEFAULT_PROFILE_PICTURE = "images/defaultItem.svg";
         $phpSelf = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
+        $this->phpSelf = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
     }
+
+    public function rejectListings($rejectedListing) {
+        $sqlQuery = "DELETE FROM Listings WHERE listingID = '$rejectedListing'";
+
+        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
+        $statement->execute(); // execute the PDO statement
+    }
+
+    public function acceptListings($acceptedListing) {
+        $sqlQuery = "UPDATE Listings SET confirmed=1 WHERE listingID = '$acceptedListing'";
+        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
+        $statement->execute(); // execute the PDO statement
+    }
+
 
 
     public function fetchAllConfirmedListings(): array
     {
-        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed = 1;';
+        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed=1';
 
         $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
-        $statement->execute(); // execute the PDO statement
-
-        $dataSet = [];
-        while ($row = $statement->fetch()) {
-            $dataSet[] = new ListingsData($row);
-        }
-        return $dataSet;
-    }
-
-    public function fetchUserListings(): array
-    {
-        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE userID = ?';
-
-        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
-        $statement->bindParam(1, $_SESSION['userID']);
         $statement->execute(); // execute the PDO statement
 
         $dataSet = [];
@@ -52,7 +52,7 @@ class ListingsAPI {
 
     public function fetchAllUnconfirmedListings(): array
     {
-        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed = 0';
+        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE confirmed=0';
 
         $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
         $statement->execute(); // execute the PDO statement
@@ -64,80 +64,21 @@ class ListingsAPI {
         return $dataSet;
     }
 
-    public function fetchCurrentListing(int $editID): ListingsData
-    {
-        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE listingID = ?';
 
-        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
-        $statement->bindParam(1, $editID);
-        $statement->execute(); // execute the PDO statement
+    public function getUserListingDetails() {
+        $userID = $_SESSION["userID"];
 
-        $row = $statement->fetch();
-        $dataObj = new ListingsData($row);
+        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE ownerID=?';
 
-        return $dataObj;
-    }
+        $statement = $this->dbHandle->prepare($sqlQuery); //Prep the PDO statement
+        $statement->bindParam(1, $userID); //bindParam $user to the first question mark
+        $statement->execute(); //Attempts to execute prepped statement
 
-    public function removeChosenListing(int $removeID): void
-    {
-        $sqlQuery = 'DELETE FROM Listings WHERE listingID = ?';
-
-        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
-        $statement->bindParam(1, $removeID);
-        $statement->execute(); // execute the PDO statement
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function editListing($nameIn, $descIn, $priceIn, int $categoryIn): void
-    {
-        $sqlClauses = [];
-
-        if(!empty($categoryIn))
-        {
-            $categoryIn = match ($categoryIn) {
-                1 => "Baby & Children",
-                2 => "Clothing & Footwear",
-                3 => "DIY & Tools",
-                4 => "Electronics & Computers",
-                5 => "Home & Garden",
-                6 => "Jewellery & Accessories",
-                7 => "Sports & Outdoors",
-                0 => "",
-                default => throw new \Exception('Unexpected match value'),
-            };
+        $dataSet = [];
+        while ($row = $statement->fetch()) {
+            $dataSet[] = new ListingsData($row);
         }
-
-        if(!empty($nameIn))
-        {
-            $sqlClauses[] = "Listings.listingName = '$nameIn'";
-        }
-        if(!empty($descIn))
-        {
-            $sqlClauses[] = "Listings.description = '$descIn'";
-        }
-        if(!empty($priceIn))
-        {
-            $sqlClauses[] = "Listings.price = '$priceIn'";
-        }
-        if(!empty($categoryIn))
-        {
-            $sqlClauses[] = "Listings.category = '$categoryIn'";
-        }
-
-        if (!empty($sqlClauses))
-        {
-            $sqlClauses[] = "Listings.confirmed = 0";
-
-            $query = "UPDATE Listings SET " . implode(', ', $sqlClauses) . " WHERE listingID = ?";
-            $statement = $this->dbHandle->prepare($query);
-            $statement->bindParam(1, $_SESSION['EditID']);
-            $statement->execute();
-        } /*else
-        {
-            echo "Nothing has been input OR No new inputs have been detected";
-        }*/
+        return $dataSet;
     }
 
     public function fetchSearchedListings(?String $searchItemName, ?String $searchItemSeller, ?String $searchMinPrice, String $searchMaxPrice, int $searchOrderIn, int $searchCategoryIn, int $searchLocationIn): array
@@ -274,6 +215,34 @@ class ListingsAPI {
         else
         {
             return $this->fetchAllConfirmedListings();
+        }
+    }
+
+    public function populateApprovalTable(array $input): void
+    {
+        foreach ($input as $listing)
+        {
+            echo <<< EOT
+                    <tr>   
+                       <th scope="row">{$listing->getListingID()}</th>
+                       <td>{$listing->getListingName()}</td>
+                       <td>{$listing->getDescription()}</td>
+                       <td>{$listing->getPrice()}</td>
+                       <td>{$listing->getCategory()}</td>
+                       <td>
+                            <img src="{$listing->getItemPhoto()} " style="height:64px; width:64px; border-radius: 25%; border: 
+                            2px solid crimson;" alt="This is a profile photo">
+                       </td>
+                       <td>
+                       <form action="{$_SERVER['PHP_SELF']}" method="post">
+                             <button type="submit" name="acceptID" value="{$listing->getListingID()}" class="btn btn-success">Accept</button>
+                       </form>
+                       <form action="{$_SERVER['PHP_SELF']}" method="post">
+                            <button type="submit" name="rejectID" value="{$listing->getListingID()}" class="btn btn-danger">Reject</button>
+                       </form>
+                       </td>
+                    <tr>
+                  EOT;
         }
     }
 

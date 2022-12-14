@@ -18,9 +18,9 @@
 
     <title>Marketplace - <?php echo $view->pageTitle; ?></title>
 
+
 </head>
 
-<body class="d-flex flex-column h-100 pt-auto">
 
 <header>
     <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top space border-bottom">
@@ -39,12 +39,25 @@
                     <li class="nav-item nav-space">
                         <a class="nav-link text-dark" href="createlisting.php" >Create Listing</a>
                     </li>
+                    <li class="nav-item nav-space">
+                        <a class="nav-link text-dark" href="#" >Create Listing</a>
+                    </li>
 
                     <li class="nav-item nav-space">
                         <a class="nav-link text-dark" href="myprofile.php" >My Profile</a>
                     </li>
 
-                    <li class="nav-item nav-space px-4">
+                    <?php
+
+
+                    if ($_SESSION['role'] == "Moderator") {
+                        echo '<li class="nav-item nav-space">
+                        <a class="nav-link text-dark" href="approve.php" >Approve listings</a>
+                    </li>';
+                    }
+                    ?>
+
+                    <li class="nav-item nav-space">
                         <form action="index.php" method="POST">
                             <button type="submit" name="LOGOUT" class="btn btn-danger">Logout</button>
                         </form>
@@ -54,6 +67,8 @@
         </div>
     </nav>
 </header>
+
+<body class="d-flex flex-column h-100 pt-auto">
 
 <!-- Begin page content -->
 <main class="flex-shrink-0 ">
@@ -124,4 +139,3 @@
             </div>
         </div>
         <main id="main-content" class="col-md-9 ms-sm-auto col-lg-10 text-center">
-

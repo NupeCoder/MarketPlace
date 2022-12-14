@@ -31,6 +31,7 @@ class UserData
 
     public function getPassword() {
         return $this->_password;
+
     }
 
 
@@ -49,6 +50,11 @@ class UserData
     public function getRole() {
         return $this->_role;
     }
+
+
+
+
+
 
     public function setUserID($id) {
         $this->_userID = $id;
