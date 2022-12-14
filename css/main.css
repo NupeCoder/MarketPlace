@@ -124,18 +124,3 @@ footer ul li a
     padding: 100px 0 0;
 }
 
-.profile-table-header{
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-}
-
-#profile-table{
-    height: 17rem;
-    overflow: auto;
-}
-
-#profile-table th{
-    height: max-content;
-    overflow: auto;
-}
