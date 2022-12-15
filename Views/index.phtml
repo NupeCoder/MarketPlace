@@ -4,23 +4,21 @@
     <div class="card-body  p-8">
         <h1 class="card-title mb-5">Login</h1>
         <!-- Form starts here; includes validation form bootstrap -->
-        <form action="" method="POST" class="needs-validation" novalidate="" autocomplete="off">
+        <form action="" method="POST" class="was-validated">
             <div class="mb-3">
-                <label class="mb-2 text-muted" for="email">Username</label>
+                <label class="mb-2 text-muted pb-1" for="email">Username</label>
                 <input id="email" type="email" class="form-control text-shrink border-red user-form" name="email" value="" required autofocus>
-                <div class="invalid-feedback">
-                    Oh No! The email is invalid.
-                </div>
+                <div class="invalid-feedback">Please provide an email.</div>
+                <div class="valid-feedback">Looks Good!</div>
             </div>
 
             <div class="mb-5">
-                <label class="text-muted" for="password">Password</label>
+                <label class="text-muted pb-2" for="password">Password</label>
                 <input id="password" type="password" class="form-control text-shrink border-red user-form" name="password" required>
-                <div class="invalid-feedback">
-                    Please enter a password...
-                </div>
+                <div class="invalid-feedback">Please enter a password.</div>
+                <div class="valid-feedback">Looks Good!</div>
             </div>
-            <input type="submit" class="btn btn-danger" name="LOGIN" value="Log In"  />
+            <button type="submit" class="btn btn-danger" name="LOGIN">Log In</button>
         </form>
     </div>
 </div>
