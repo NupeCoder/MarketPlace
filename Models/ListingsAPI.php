@@ -314,15 +314,14 @@ class ListingsAPI {
                        <td>{$listing->getPrice()}</td>
                        <td>{$listing->getCategory()}</td>
                        <td>
-                            <img src="{$listing->getItemPhoto()} " style="height:64px; width:64px; border-radius: 25%; border: 
-                            2px solid crimson;" alt="This is a profile photo">
+                            <img src="{$listing->getItemPhoto()} " style="height:64px; width:64px; border-radius: 25%;" alt="This is a profile photo">
                        </td>
                        <td>
                        <form action="{$_SERVER['PHP_SELF']}" method="post">
-                             <button type="submit" name="acceptID" value="{$listing->getListingID()}" class="btn btn-success">Accept</button>
+                             <button type="submit" name="acceptID" value="{$listing->getListingID()}" class="btn btn-success btn-approval rounded-0">Accept</button>
                        </form>
                        <form action="{$_SERVER['PHP_SELF']}" method="post">
-                            <button type="submit" name="rejectID" value="{$listing->getListingID()}" class="btn btn-danger">Reject</button>
+                            <button type="submit" name="rejectID" value="{$listing->getListingID()}" class="btn btn-danger btn-approval rounded-0">Reject</button>
                        </form>
                        </td>
                     <tr>

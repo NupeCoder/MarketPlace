@@ -1,10 +1,14 @@
-<?php require_once('Views/other/header.phtml');?>
-
+<?php require_once('Views/other/header.phtml');
+require_once('Models/helperClass/Validator.php');?>
 
 <?php
 if(isset($_POST['SEARCH']))
 {
-    $listingAPI->createCards($listingAPI->fetchSearchedListings($_POST['searchName'], $_POST['sellerName'], $_POST['minSearch'], $_POST['maxSearch'], $_POST['orderFilter'], $_POST['categoryFilter'], $_POST['locationFilter']));
+    $validator = new Validator();
+    $listingAPI->createCards($listingAPI->fetchSearchedListings($validator->validateInput(['searchName']),
+        $validator->validateInput($_POST['sellerName']), $validator->validateInput($_POST['minSearch']),
+        $validator->validateInput($_POST['maxSearch']), $validator->validateInput($_POST['orderFilter']),
+        $validator->validateInput($_POST['categoryFilter']), $validator->validateInput($_POST['locationFilter'])));
 } else
 {
     $listingAPI->createCards($listingAPI->fetchAllConfirmedListings());

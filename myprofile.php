@@ -2,10 +2,12 @@
 
 require_once('Models/User.php');
 require_once('Models/UserAPI.php');
+require_once('Models/helperClass/Validator.php');
 
 $currentUser = new User(); // sets session id
 $listingAPI = new ListingsAPI();
 $userAPI = new userAPI();
+$validator = new Validator();
 
 if(isset($_POST['DeleteID']))
 {
@@ -20,20 +22,11 @@ $phpSelf  = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
 
 if(isset($_POST['changeProfile']))
 {
-    $newName = validateInput($_POST['changeName']);
-    $newMobile =  validateInput($_POST['changeMobile']);
-    $newPassword =  validateInput($_POST['changePass']);
-    $confirmPassword =  validateInput($_POST['changePassConfirm']);
+    $newPassword =  $validator->validateInput($_POST['changePass']);
+    $confirmPassword =  $validator->validateInput($_POST['changePassConfirm']);
 
     if($newPassword == $confirmPassword){
-        $userAPI->changeUserDetails($newName,$newMobile,$newPassword);
+        $userAPI->changeUserDetails($validator->validateInput($_POST['changeName']),$validator->validateInput($_POST['changeMobile']),$newPassword);
     }
 }
 
-function validateInput($input)
-{
-    $input = trim($input);
-    $input = stripslashes($input);
-    $input = htmlspecialchars($input);
-    return $input;
-}
