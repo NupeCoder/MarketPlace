@@ -175,7 +175,6 @@ class ListingsAPI {
         $searchOrder = "";
         $searchDirection = "";
 
-
         if(!empty($searchCategoryIn))
         {
             $searchCategory = match ($searchCategoryIn) {
@@ -197,13 +196,13 @@ class ListingsAPI {
                 1 => "Bristol",
                 2 => "London",
                 3 => "Manchester",
-                default => "",
+                default => throw new \Exception('Unexpected match value'),
             };
         }
 
         if(!empty($searchOrderIn))
         {
-            switch ($searchOrder)
+            switch ($searchOrderIn)
             {
                 case 1:
                     $searchOrder = "listingName";
@@ -269,11 +268,10 @@ class ListingsAPI {
         {
             $sqlClauses[] = "ORDER BY $searchOrder $searchDirection";
         }
-
         if((!empty($sqlClauses)) && (!empty($searchOrder)) && (count($sqlClauses) == 1))
         {
             $query = "SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) 
-         WHERE confirmed = 1 " . implode(' AND ', $sqlClauses);
+         WHERE confirmed = 1 " . $sqlClauses[0];
 
             $statement = $this->dbHandle->prepare($query);
             $statement->execute();
