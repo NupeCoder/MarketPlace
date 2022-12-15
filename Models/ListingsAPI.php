@@ -23,14 +23,16 @@ class ListingsAPI {
         $this->phpSelf = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
     }
 
-    public function rejectListings($rejectedListing) {
+    public function rejectListings($rejectedListing): void
+    {
         $sqlQuery = "DELETE FROM Listings WHERE listingID = '$rejectedListing'";
 
         $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
         $statement->execute(); // execute the PDO statement
     }
 
-    public function acceptListings($acceptedListing) {
+    public function acceptListings($acceptedListing): void
+    {
         $sqlQuery = "UPDATE Listings SET confirmed=1 WHERE listingID = '$acceptedListing'";
         $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
         $statement->execute(); // execute the PDO statement
@@ -320,7 +322,7 @@ class ListingsAPI {
                        </td>
                        <td>
                        <form action="{$_SERVER['PHP_SELF']}" method="post">
-                             <button type="submit" name="acceptID" value="{$listing->getListingID()}" class="btn btn-success btn-approval rounded-0">Accept</button>
+                             <button type="submit" name="acceptID" value="{$listing->getListingID()}, {$listing->getListingName()}, {$listing->getPrice()}, {$listing->getCategory()}, {$listing->getDescription()}, {$listing->getItemPhoto()}" class="btn btn-success btn-approval rounded-0">Accept</button>
                        </form>
                        <form action="{$_SERVER['PHP_SELF']}" method="post">
                             <button type="submit" name="rejectID" value="{$listing->getListingID()}" class="btn btn-danger btn-approval rounded-0">Reject</button>
