@@ -5,6 +5,8 @@ require_once('Models/Database.php');
 require_once('Models/ListingsData.php');
 
 
+
+
 class ListingsAPI {
 
     protected ?Database $dbInstance;
@@ -233,23 +235,27 @@ class ListingsAPI {
      */
     public function createCards(array $input): void
     {
-
+        $id = 0;
         foreach ($input as $listing)
         {
+            $id +=1;
             echo <<< EOT
                   <div class="col d-inline-flex justify-content-center g-4">
                         <div class="card border-red mb-3 me-3" style="width: 18rem;">
                             <div class="text-center border-bottom py-3">
-                                <img src="{$listing->getItemPhoto()}" class="card-img-top" alt="Product Image">
+                                <img src="{$listing->getItemPhoto()}" class="card-img-top" alt="Product Image" >
                             </div>
                             <div class="card-body text-center">
-                                <h5 class="card-title">{$listing->getListingName()}</h5>
+                                <h5 class="card-title" id=name{$id}>{$listing->getListingName()}</h5>
                                 <h6 class="card-text text-muted">{$listing->getCategory()}</h6>
-                                <h5 class="card-text">£{$listing->getPrice()}</h5>
+                                <h5 class="card-text" id="price{$id}">£{$listing->getPrice()}</h5>
                                 <p class="card-text">{$listing->getDescription()}</p>
                                 <p class="card-footer">Seller: {$listing->getName()}</p>
                                 <img src="{$listing->getProfilePhoto()}"  class="card-img-profile" alt="Seller Profile Picture">
-                                <a href="#" class="btn btn-outline-danger">Send a Message</a>
+                                <form method="post" action="">
+                                    <button onclick="scanDiv({$id})" name={$id} type="submit" class="btn btn-outline-danger" >Send a Message</button>
+                                </form>
+                                
                             </div>
                         </div>
                    </div>
@@ -258,3 +264,6 @@ class ListingsAPI {
     }
 
 }
+
+
+
