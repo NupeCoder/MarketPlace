@@ -39,7 +39,6 @@
                     <li class="nav-item nav-space">
                         <a class="nav-link text-dark" href="createlisting.php" >Create Listing</a>
                     </li>
-
                     <li class="nav-item nav-space">
                         <a class="nav-link text-dark" href="myprofile.php" >My Profile</a>
                     </li>
@@ -73,19 +72,19 @@
         <div class="row">
             <div id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="position-sticky pt-3 sidebar-sticky">
-                    <div class="nav flex-column ms-3 px-3">
+                    <div class="nav flex-column px-3">
                         <form action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL); ?>" method="post">
                             <h5>Filter listings</h5>
                             <h6>Item name</h6>
-                            <div class="row mb-3 col-12">
-                                <input type="text" class="form-control w-100" name="searchName" id="searchName">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" name="searchName" id="searchName">
                             </div>
                             <h6>Seller</h6>
-                            <div class="row mb-3 col-12">
-                                <input type="text" class="form-control w-100" name="sellerName" id="sellerName">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" name="sellerName" id="sellerName">
                             </div>
                             <h6>Category</h6>
-                            <div class="row mb-3 col-12">
+                            <div class="mb-3">
                                 <select class="select col-12" name="categoryFilter" id="categoryFilter">
                                     <option value="0">All categories</option>
                                     <option value="1">Baby & Children</option>
@@ -98,7 +97,7 @@
                                 </select>
                             </div>
                             <h6>Seller Location</h6>
-                            <div class="row mb-3 col-12 w-100">
+                            <div class="mb-3">
                                 <select class="select col-12" name="locationFilter" id="locationFilter">
                                     <option value="0">All locations</option>
                                     <option value="1">Bristol</option>
@@ -107,18 +106,14 @@
                                 </select>
                             </div>
                             <h6>Price range</h6>
-                            <div class="row mb-3 col-12">
-                                <div class="col-6">
-                                    <label for="minSearch">Minimum</label>
-                                    <input type="text" class="form-control w-75" name="minSearch" id="minSearch" value="0" step="0.01">
-                                </div>
-                                <div class="col-6">
-                                    <label for="maxSearch">Maximum</label>
-                                    <input type="text" class="form-control w-75" name="maxSearch" id="maxSearch" step="0.01">
-                                </div>
+                            <div class="mb-3">
+                                <label for="minSearch">Minimum</label>
+                                <input type="text" class="form-control" name="minSearch" id="minSearch" value="0" step="0.01">
+                                <label for="maxSearch">Maximum</label>
+                                <input type="text" class="form-control" name="maxSearch" id="maxSearch" step="0.01">
                             </div>
                             <h5>Order by</h5>
-                            <div class="row mb-3 col-12">
+                            <div class="mb-3">
                                 <select class="select col-12" name="orderFilter" id="orderFilter">
                                     <option value="0">None</option>
                                     <option value="1">Listing name (A-Z)</option>
@@ -136,3 +131,72 @@
             </div>
         </div>
         <main id="main-content" class="col-md-9 ms-sm-auto col-lg-10 text-center">
+            <div class="mb-3" id="mobileMenu">
+                <div>
+                    <button class="btn rounded-0 btn-dark col-12" id="mobileMenuButton" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Filter search
+                    </button>
+                </div>
+                <div class="collapse" id="collapseExample">
+                    <div class="border-bottom card rounded-0 col-12">
+                        <form class="align-items-center" align="center"action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL); ?>" method="post">
+                            <h5>Filter listings</h5>
+                            <h6>Item name</h6>
+                            <div class="mb-3 col-9">
+                                <input type="text" class="form-control ms-5" name="searchName" id="searchName">
+                            </div>
+                            <h6>Seller</h6>
+                            <div class="mb-3 col-9">
+                                <input type="text" class="form-control ms-5" name="sellerName" id="sellerName">
+                            </div>
+                            <h6>Category</h6>
+                            <div class="mb-3">
+                                <select class="select col-9" name="categoryFilter" id="categoryFilter">
+                                    <option value="0">All categories</option>
+                                    <option value="1">Baby & Children</option>
+                                    <option value="2">Clothing & Footwear</option>
+                                    <option value="3">DIY & Tools</option>
+                                    <option value="4">Electronics & Computers</option>
+                                    <option value="5">Home & Garden</option>
+                                    <option value="6">Jewellery & Accessories</option>
+                                    <option value="7">Sports & Outdoors</option>
+                                </select>
+                            </div>
+                            <h6>Seller Location</h6>
+                            <div class="mb-3">
+                                <select class="select col-9" name="locationFilter" id="locationFilter">
+                                    <option value="0">All locations</option>
+                                    <option value="1">Bristol</option>
+                                    <option value="2">London</option>
+                                    <option value="3">Manchester</option>
+                                </select>
+                            </div>
+                            <h6>Price range</h6>
+                            <div class="mb-3 col-9">
+                                    <label for="minSearch">Minimum</label>
+                                    <input type="text" class="form-control col-3 ms-5" name="minSearch" id="minSearch" value="0" step="0.01">
+                            </div>
+                            <div class="mb-3 col-9"
+                                    <label for="maxSearch">Maximum</label>
+                                    <input type="text" class="form-control col-3 ms-5" name="maxSearch" id="maxSearch" step="0.01">
+                            </div>
+                            <h5>Order by</h5>
+                            <div class="mb-3">
+                                <select class="select col-9" name="orderFilter" id="orderFilter">
+                                    <option value="0">None</option>
+                                    <option value="1">Listing name (A-Z)</option>
+                                    <option value="2">Listing name (Z-A)</option>
+                                    <option value="3">Cost (Low-High)</option>
+                                    <option value="4">Cost (High-Low)</option>
+                                    <option value="5">Listing age (Newest-Oldest)</option>
+                                    <option value="6">Listing age (Oldest-Newest)</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" name="SEARCH" class="btn btn-danger col-auto">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+

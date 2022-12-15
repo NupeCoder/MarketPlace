@@ -44,7 +44,6 @@ main
     .resize
     {
         width: 75%;
-
     }
 }
 
@@ -116,6 +115,9 @@ footer ul li a
 .card
 {
     display: inline-block;
+}
+
+.listing-card{
     height: 32em;
 }
 
@@ -128,5 +130,11 @@ footer ul li a
     z-index: 100;
     box-shadow: inset -1px 0 0 rgb(0 0 0 / 10%);
     padding: 100px 0 0;
+}
+
+@media screen and (min-width: 768px) {
+    #mobileMenu {
+        display: none;
+    }
 }
 
