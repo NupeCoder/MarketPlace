@@ -15,4 +15,16 @@ if(isset($_POST['SEARCH']))
 }
 ?>
 
+
+
+<script>
+    function scanDiv(id){
+        var name = document.getElementById("name"+id).innerText;
+        var price = document.getElementById("price"+id).innerText;
+        console.log(name + price);
+    }
+
+</script>
+
+
 <?php require_once('Views/other/footer.phtml'); ?>

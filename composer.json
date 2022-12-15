@@ -1,0 +1,5 @@
+{
+    "require": {
+        "sebbmeyer/php-microsoft-teams-connector": "^0.2.2"
+    }
+}

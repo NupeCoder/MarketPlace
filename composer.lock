@@ -1,0 +1,67 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "aa9224280eb45e824595e6e8047b6204",
+    "packages": [
+        {
+            "name": "sebbmeyer/php-microsoft-teams-connector",
+            "version": "0.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebbmeyer/php-microsoft-teams-connector.git",
+                "reference": "b8440c10856581b06575592864027c439a2599f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebbmeyer/php-microsoft-teams-connector/zipball/b8440c10856581b06575592864027c439a2599f2",
+                "reference": "b8440c10856581b06575592864027c439a2599f2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sebbmyr\\Teams\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Meyer",
+                    "email": "sebbmyr@gmail.com"
+                }
+            ],
+            "description": "PHP Microsoft Teams Connector",
+            "keywords": [
+                "Teams",
+                "connector",
+                "connectors",
+                "messagecard",
+                "microsoft",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/sebbmeyer/php-microsoft-teams-connector/issues",
+                "source": "https://github.com/sebbmeyer/php-microsoft-teams-connector/tree/0.2.2"
+            },
+            "time": "2021-01-23T15:03:04+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}
