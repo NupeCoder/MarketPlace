@@ -247,7 +247,7 @@ class ListingsAPI {
                             </div>
                             <div class="card-body text-center">
                                 <form method="get" action="">
-                                    <h5 class="card-title" name="name{$id}" id=name{$id}>{$listing->getListingName()}</h5>
+                                    <input type="hidden" class="card-title" name="name{$id}" id=name{$id} value="{$listing->getListingName()}">
                                     <h6 class="card-text text-muted">{$listing->getCategory()}</h6>
                                     <h5 class="card-text" id="price{$id}">£{$listing->getPrice()}</h5>
                                     <p class="card-text">{$listing->getDescription()}</p>
