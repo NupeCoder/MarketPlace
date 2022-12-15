@@ -34,7 +34,79 @@ class ListingsAPI {
         $statement->execute(); // execute the PDO statement
     }
 
+    public function fetchUserListings(): array
+    {
+        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE userID = ?';
 
+        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
+        $statement->bindParam(1, $_SESSION['userID']);
+        $statement->execute(); // execute the PDO statement
+
+        $dataSet = [];
+        while ($row = $statement->fetch()) {
+            $dataSet[] = new ListingsData($row);
+        }
+        return $dataSet;
+    }
+
+    public function removeChosenListing(int $removeID): void
+    {
+        $sqlQuery = 'DELETE FROM Listings WHERE listingID = ?';
+
+        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
+        $statement->bindParam(1, $removeID);
+        $statement->execute(); // execute the PDO statement
+    }
+    /**
+
+     * @throws Exception
+     */
+    public function editListing($nameIn, $descIn, $priceIn, int $categoryIn): void
+    {
+        $sqlClauses = [];
+
+        if(!empty($categoryIn))
+        {
+            $categoryIn = match ($categoryIn) {
+                1 => "Baby & Children",
+                2 => "Clothing & Footwear",
+                3 => "DIY & Tools",
+                4 => "Electronics & Computers",
+                5 => "Home & Garden",
+                6 => "Jewellery & Accessories",
+                7 => "Sports & Outdoors",
+                default => throw new \Exception('Unexpected match value'),
+            };
+        }
+
+        if(!empty($nameIn))
+        {
+            $sqlClauses[] = "Listings.listingName = '$nameIn'";
+        }
+        if(!empty($descIn))
+        {
+            $sqlClauses[] = "Listings.description = '$descIn'";
+        }
+        if(!empty($priceIn))
+        {
+            $sqlClauses[] = "Listings.price = '$priceIn'";
+        }
+        if(!empty($categoryIn))
+        {
+            $sqlClauses[] = "Listings.category = '$categoryIn'";
+        }
+
+        if (!empty($sqlClauses))
+        {
+            $query = "UPDATE Listings SET " . implode(', ', $sqlClauses) . " WHERE listingID = ?";
+            $statement = $this->dbHandle->prepare($query);
+            $statement->bindParam(1, $_SESSION['EditID']);
+            $statement->execute();
+        } else
+        {
+            echo "Nothing has been input OR No new inputs have been detected";
+        }
+    }
 
     public function fetchAllConfirmedListings(): array
     {
@@ -79,6 +151,20 @@ class ListingsAPI {
             $dataSet[] = new ListingsData($row);
         }
         return $dataSet;
+    }
+
+    public function fetchCurrentListing(int $editID): ListingsData
+    {
+        $sqlQuery = 'SELECT * FROM (Listings INNER JOIN Users ON Listings.ownerID = Users.userID) WHERE listingID = ?';
+
+        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
+        $statement->bindParam(1, $editID);
+        $statement->execute(); // execute the PDO statement
+
+        $row = $statement->fetch();
+        $dataObj = new ListingsData($row);
+
+        return $dataObj;
     }
 
     public function fetchSearchedListings(?String $searchItemName, ?String $searchItemSeller, ?String $searchMinPrice, String $searchMaxPrice, int $searchOrderIn, int $searchCategoryIn, int $searchLocationIn): array

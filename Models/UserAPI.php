@@ -92,18 +92,20 @@ class UserAPI
         return $dataSet;
     }
 
-    public function changeUserDetails($newName,$newPhone,$newPass)
+    public function changeUserDetails($newName,$newPhone,$newPass): void
     {
         $sqlClauses = [];
 
         if(!empty($newName))
         {
             $sqlClauses[] = "name = '$newName'";
+            $_SESSION['fullName'] = $newName;
         }
 
         if(!empty($newPhone))
         {
             $sqlClauses[] = "phoneNumber = '$newPhone'";
+            $_SESSION['number'] = $newPhone;
         }
 
         if(!empty($newPass))
@@ -119,8 +121,8 @@ class UserAPI
             $statement->bindParam(1, $_SESSION['userID']);
             $statement->execute();
 
-            $_SESSION['fullName'] = $newName;
-            $_SESSION['number'] = $newPhone;
+
+
         }
     }
 }
