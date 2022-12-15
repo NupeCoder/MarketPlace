@@ -17,11 +17,11 @@ if(isset($_POST["LOGOUT"]))
 require_once('Views/createlisting.phtml');
 
 
-if (isset($_POST["registerListings"])) {
+if (isset($_POST["registerListings"]))
+{
     $tempCategory = $_POST["selectedOption"];
-
-
     $ownerID = $_SESSION['userID'];
 
-    $result = $listingsData->registerListing($_POST["listingname"], $_POST["description"], floatval($_POST["price"]), $tempCategory,'images/defaultItem.svg', $ownerID);
+
+    $result = $listingsData->registerListing($_POST["listingname"], $_POST["description"], floatval($_POST["price"]), $tempCategory, 'images/defaultItem.svg', $ownerID);
 }
