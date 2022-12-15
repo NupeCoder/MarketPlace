@@ -297,7 +297,7 @@ class ListingsAPI {
         {
             echo <<< EOT
                   <div class="col d-inline-flex justify-content-center g-4">
-                        <div class="card border-red mb-3 me-3" style="width: 18rem;">
+                        <div class="card border-red listing-card mb-3 me-3" style="width: 18rem;">
                             <div class="text-center border-bottom py-3">
                                 <img src="{$listing->getItemPhoto()}" class="card-img-top" alt="Product Image">
                             </div>

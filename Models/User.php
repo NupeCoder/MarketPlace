@@ -17,7 +17,7 @@ class User
     public function __construct()
     {
         //--This line is for testing purposes whilst on uni PCs  - should still work on home PCs tho-------
-        //session_save_path("sessions");
+        session_save_path("sessions");
         //-----------------------------------------------------------------------------------------------
         session_start();
         $this->_userID = 0;
@@ -27,6 +27,7 @@ class User
         $this->_location = "N/A";
         $this->_email = "none";
         $this->_number = "none";
+        $this->_role = "";
 
         if(isset($_SESSION["loginStatus"]))
         {
