@@ -1,53 +1,103 @@
-<?php require_once('Views/other/header.phtml') ?>
-
-<br/>
-<br/>
-<br/>
+<?php require_once('Views/other/header.phtml')
+//change to headerAlt when sent to main
+?>
 
 
 
 
-<h2>Create Listing</h2>
-<form name="myform" id="myform" method="post" action="" class="form text-primary">
-<!--    <label for="listingID">ListingID</label>-->
-<!--    <input type="text" name="listingid">-->
-<!--    <br/>-->
-<!--    <br/>-->
-    <label for="ListingName">Listing Name</label>
-    <input type="text" name="listingname" required maxlength="255">
-    <br/>
-    <br/>
-    <label for="Description">Description</label>
-    <input type="text" name="description" required maxlength="255">
-    <br/>
-    <br/>
-    <label for="price">Price</label>
-    <input type="text" name="price" required>
-    <br/>
-    <br/>
-<!--    <label for="category">Category</label>-->
-<!--    <input type="text" name="category" required>-->
-<!--    <br/>-->
-<!--    <br/>-->
+<div class="row justify-content-center">
+    <div class="col-md-6 border-right justify-content-center">
+        <div class="p-3 py-5">
+            <div class="d-flex justify-content-center align-items-center mb-3">
+                <h4 class="text-right">Create Listing</h4>
+            </div>
+            <div class="w-100 me-0">
+                <form name="myform" id="myform" method="post" action="" class="form text-dark form-control">
+                    <h6>Item name</h6>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="listingname" required maxlength="255">
+                    </div>
+                    <h6>Listing description</h6>
+                    <div class="mb-3">
+                        <textarea class="form-control" name="description" rows="3" required maxlength="255 "></textarea>
+                    </div>
+                    <h6>Price</h6>
+                    <div class="mb-3">
+                        <input type="number" class="form-control" name="price" step="0.01">
+                    </div>
+                    <h6>Category</h6>
+                    <div class="mb-3">
+                        <select class="select" form="myform" name="selectedOption">
+                            <option value="Select">Select a Category</option>
+                            <option value="Sports & Outdoors">Sports & Outdoors</option>
+                            <option value="Clothing & Footwear">Clothing & Footwear</option>
+                            <option value="Electronics & Computers">Electronics & Computers</option>
+                            <option value="Baby & Children">Baby & Children</option>
+                            <option value="Home & Garden">Home & Garden</option>
+                            <option value="DIY & Tools">DIY & Tools</option>
+                        </select>
+                    </div>
 
-    <label for="Category">Category: </label>
-        <select form="myform" name="selectedOption">
-            <option value="Sports & Outdoors">Sports & Outdoors</option>
-            <option value="Clothing & Footwear">Clothing & Footwear</option>
-            <option value="Electronics & Computers">Electronics & Computers</option>
-            <option value="Baby & Children">Baby & Children</option>
-            <option value="Home & Garden">Home & Garden</option>
-            <option value="DIY & Tools">DIY & Tools</option>
-        </select>
-
-    <br/>
-    <br/>
-    <label for="ItemPhoto">Item Photo</label>
-    <input type="text" name="itemphoto" required maxlength="255">
-
-    <input type="submit" name="registerListings" value="Register">
+                    <h6>Type of Transaction:</h6>
+                    <div class="mb-3">
+                        <input type="checkbox" id="sell" name="sell" value="sell">
+                        <label for="sell">Sell</label><br>
+                        <input type="checkbox" id="trade" name="trade" value="trade">
+                        <label for="trade">Trade</label><br>
+                        <input type="checkbox" id="donate" name="donate" value="donate" onclick="enabled(this)">
+                        <label for="donate">Donate</label>
+                    </div>
 
 
-</form>
+                    <select id="charity" name="charity">
+                        <option value="0">Select a Charity</option>
+                        <option value="1">Speedomick Foundation</option>
+                        <option value="2">Stop Breathe Think</option>
+                        <option value="3">FareShare</option>
+                    </select>
+                    <script>    document.getElementById("charity").style.visibility='hidden';</script>
+
+                    <br>
+                    <br>
+
+                    <div class="mb-3">
+                        <button type="submit" name="registerListings" class="btn btn-danger">Create</button>
+                    </div>
+
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+
+
+
+    function enabled(current) {
+        let dd1=document.getElementById("charity");
+
+        if (!(current.checked)) {
+            dd1.style.visibility = 'hidden';
+        } else {
+            dd1.style.visibility = 'visible';
+        }
+
+
+    }
+
+
+
+</script>
 
 <?php require_once('Views/other/footer.phtml') ?>
+
+
+
+

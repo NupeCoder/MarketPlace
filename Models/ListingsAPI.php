@@ -64,33 +64,35 @@ class ListingsAPI {
     }
 
 
-    public function registerListing($givenListingName,$givenDescription,$givenPrice,$givenCategory,$givenItemPhoto, $ownerID)
+    public function registerListing($newListingname, $newDescription, $newPrice, $newCategory, $newItemPhoto, $newOwnerID)
     {
 
-
-
-
-
-
-
-
         $confirmedStatus = 0;
-        $sqlQuery = "INSERT into Listings (listingName,description,price,confirmed,category,itemPhoto, ownerID) VALUES (?,?,?,?,?,?,?)";
+        $sqlQuery = "INSERT INTO Listings (listingName,description,price,confirmed,category,itemPhoto,ownerID) VALUES (?,?,?,?,?,?,?)";
+
         $statement = $this->dbHandle->prepare($sqlQuery);
 
-
-        $statement->bindParam(1,$givenListingName);
-        $statement->bindParam(2,$givenDescription);
-        $statement->bindParam(3,$givenPrice);
+        $statement->bindParam(1,$newListingname);
+        $statement->bindParam(2,$newDescription);
+        $statement->bindParam(3,$newPrice);
         $statement->bindParam(4,$confirmedStatus);
-        $statement->bindParam(5,$givenCategory);
-        $statement->bindParam(6,$givenItemPhoto);
-        $statement->bindParam(7,$ownerID);
+        $statement->bindParam(5,$newCategory);
+        $statement->bindParam(6,$newItemPhoto);
+        $statement->bindParam(7,$newOwnerID);
 
         return $statement->execute();
-
     }
 
+
+    public function fetchAddedListing() {
+        $sqlQuery ='SELECT listingID FROM Listings ORDER BY listingID DESC LIMIT 1';
+
+        $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
+        $statement->execute(); // execute the PDO statement
+
+        return $statement->fetch()[0];
+
+    }
 
 
 }
