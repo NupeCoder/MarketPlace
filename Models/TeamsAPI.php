@@ -29,6 +29,7 @@ class TeamsAPI
 
     public function sendCreationHeroCard($listingName, $listingPrice, $listingCategory, $listingImage, $listingDescription): void
     {
+        $img = "http://hc2x-2.poseidon.salford.ac.uk/ajbell/" . $listingImage;
         $URL = $this->teamsURL;
         // create connector instance
         $connector = new \Sebbmyr\Teams\TeamsConnector($URL);
@@ -36,9 +37,9 @@ class TeamsAPI
         $card = new \Sebbmyr\Teams\Cards\HeroCard();
         $card->setTitle($listingName . " - £" . $listingPrice)
             ->setSubtitle($listingCategory)
-            //->addImage("http://hc2x-2.poseidon.salford.ac.uk/ajbell/" . $listingImage)
+            ->addImage($img)
             ->setText($listingDescription)
-            ->addButton("openUrl", "Wikipedia page", "https://en.wikipedia.org/wiki/Mouse")
+            //->addButton("openUrl", "Wikipedia page", "https://en.wikipedia.org/wiki/Mouse")
         ;
         // send card via connector
         $connector->send($card);
