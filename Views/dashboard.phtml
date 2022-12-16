@@ -5,7 +5,7 @@ require_once('Models/helperClass/Validator.php');?>
 if(isset($_POST['SEARCH']))
 {
     $validator = new Validator();
-    $listingAPI->createCards($listingAPI->fetchSearchedListings($validator->validateInput(['searchName']),
+    $listingAPI->createCards($listingAPI->fetchSearchedListings($validator->validateInput($_POST['searchName']),
         $validator->validateInput($_POST['sellerName']), $validator->validateInput($_POST['minSearch']),
         $validator->validateInput($_POST['maxSearch']), $validator->validateInput($_POST['orderFilter']),
         $validator->validateInput($_POST['categoryFilter']), $validator->validateInput($_POST['locationFilter'])));
@@ -23,7 +23,6 @@ if(isset($_POST['SEARCH']))
         var price = document.getElementById("price"+id).innerText;
         console.log(name + price);
     }
-
 </script>
 
 
