@@ -16,7 +16,6 @@ class UserData
     }
 
 
-
     public function getUserID() {
         return $this->_userID;
     }
