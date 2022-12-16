@@ -2,7 +2,7 @@
 
 class Database
 {
-
+    // sets two variables to help access the database
     protected static $_dbInstance = null;
     protected $_dbHandle;
 
@@ -10,11 +10,11 @@ class Database
      * @return Database
      */
     public static function getInstance() {
+        // database details are given to this function so it can access the database
         $username ='hc2x-2';
         $password = 'group2';
         $host = 'poseidon.salford.ac.uk';
         $dbName = 'hc2x_2_marketplace';
-
         if(self::$_dbInstance === null) { //checks if the PDO exists
             // creates new instance if not, sending in connection info
             self::$_dbInstance = new self($username, $password, $host, $dbName);
@@ -44,10 +44,10 @@ class Database
      * @return PDO
      */
     public function getdbConnection() {
-        return $this->_dbHandle; // returns the PDO handle to be used                                        elsewhere
+        return $this->_dbHandle; // returns the PDO handle to be used elsewhere
     }
 
     public function __destruct() {
-        $this->_dbHandle = null; // destroys the PDO handle when nolonger needed                                        longer needed
+        $this->_dbHandle = null; // destroys the PDO handle when no longer needed
     }
 }

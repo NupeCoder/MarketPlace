@@ -8,12 +8,12 @@ require_once('Models/ListingsData.php');
 
 
 class ListingsAPI {
-
+    // global variables for the class
     protected ?Database $dbInstance;
     protected PDO $dbHandle;
     protected $DEFAULT_PROFILE_PICTURE;
     private $phpSelf;
-
+    //constructor for ListingsAPI class
     public function __construct()
     {
         $this->dbInstance = Database::getInstance();
@@ -22,17 +22,19 @@ class ListingsAPI {
         $phpSelf = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
         $this->phpSelf = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
     }
-
+    // this function rejects listing that should not be approved by being passed the rejectedListind ID
     public function rejectListings($rejectedListing): void
     {
+        // this sqlqury deletes the rejected listing from the database using the listing id
         $sqlQuery = "DELETE FROM Listings WHERE listingID = '$rejectedListing'";
 
         $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
         $statement->execute(); // execute the PDO statement
     }
-
+    //this function accepts the approved listings by being passed a listingid
     public function acceptListings($acceptedListing): void
     {
+        // this sqlquery updates the listing table and sets the confirmed value
         $sqlQuery = "UPDATE Listings SET confirmed=1 WHERE listingID = '$acceptedListing'";
         $statement = $this->dbHandle->prepare($sqlQuery); // prepare a PDO statement
         $statement->execute(); // execute the PDO statement
